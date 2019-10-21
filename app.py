@@ -1,18 +1,11 @@
-#Team SeQueL - Joseph Lee, Eric "Morty" Lau, and Yevgeniy Gorbachev 
+#SeQueL
 #SoftDev1 pd1
-#P0 -- Da Art of Storytellin'
-#2019-10-28
+#p00
 
-from flask import Flask, render_template, request, redirect, session, url_for, flash
+from flask import Flask, request, session, render_template, url_for
+import os
 
 app = Flask(__name__)
+app.secret_key = os.urandom(32)
 
-@app.route("/")
-def root():
-    return render_template(
-        "index.html"
-    )
 
-if __name__ == "__main__":
-    app.debug = True
-    app.run()
