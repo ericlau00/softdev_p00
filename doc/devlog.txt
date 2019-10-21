@@ -1,3 +1,6 @@
 lauE -- 2019-10-18 01:24
-Set up GitHub Project and created devlog
+    Set up GitHub Project and created devlog.
 
+lauE -- 2019-10-20 20:30
+    Add design.pdf v0 which was contributed to by all members.
+  
