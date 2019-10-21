@@ -10,5 +10,5 @@
         - Fetching blog entries, list of blogs, etc.
         - Adding users, blogs, entries, comments to database
 - Joseph Lee
-    - Home.html, Blog.html
-    - python and flask regarding tasks in integrating above-mentioned html pages 
+    - App routing and redirecting
+    - Implementing front-end
