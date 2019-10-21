@@ -6,3 +6,5 @@ lauE -- 2019-10-20 20:30
   
 lauE -- 2019-10-20 20:53
     Add roles and project titles to README.
+LeeJo -- 2019-10-20 21:16
+    Updated Design Doc and Roles
