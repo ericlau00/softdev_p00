@@ -4,3 +4,5 @@ lauE -- 2019-10-18 01:24
 lauE -- 2019-10-20 20:30
     Add design.pdf v0 which was contributed to by all members.
   
+lauE -- 2019-10-20 20:53
+    Add roles and project titles to README.
