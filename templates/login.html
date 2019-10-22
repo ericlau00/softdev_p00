@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+      Form
+    </title>
+  </head>
+  <body>
+    <center>
+      <h1>Tumblr: the SeQueL</h1>
+      <h4>Joseph Lee, Yevgeniy, Eric</h4><br>
+      {% extends "layout.html" %}
+      {% block body %}
+      <span style="color:#ff0300">
+        Welcome!
+      </span>
+      <form action="/logout" method="get">
+        <button type="submit" formaction="/logout">Logout</button><br>
+      </form>
+      <a href="/register">Create an account</a>
+      {% endblock %}
+    </center>
+  </body>
+</html>
