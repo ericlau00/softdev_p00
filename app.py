@@ -2,24 +2,21 @@
 #SoftDev1 pd1
 #p00
 
-from flask import Flask, request, session, render_template, url_for
+from flask import Flask, request, redirect, session, render_template, url_for, flash
 import os
 
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
-<<<<<<< HEAD
 
 username = "user"
 password = "password"
 
 @app.route("/", methods=["GET"])
 def root():
-    if not 'login' in session:
-        session['login'] = False 
-    if(sessions['login']):
+    if 'user' in session:
         return redirect(url_for("home"))
     else:
-        redirect(url_for("login"))
+        return redirect(url_for("login"))
 
 @app.route("/home", methods=["GET"])
 def home():
@@ -27,11 +24,21 @@ def home():
         "home.html"
     )
 
-@app.route("login", methods=["GET,POST"])
+@app.route("/login", methods=["GET","POST"])
 def login():
-    if(request.method == "POST"):
-        return "this is a post"
-    elif(request.method == "GET"):
-        return "this is a get"
-=======
->>>>>>> b4831cb97c38ca9983e5af49f603d895002fc4a8
+    if(request.method == "GET"):
+        return render_template("login.html")
+    elif(request.method == "POST"):
+        return "post"
+    # if(request.method == "POST"):
+    #     return "this is a post"
+    # elif(request.method == "GET"):
+    #     return "this is a get"
+
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    return "register"
+
+if __name__ == "__main__":
+	app.debug = True
+	app.run()
