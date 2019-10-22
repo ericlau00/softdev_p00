@@ -40,19 +40,23 @@ def login():
         else:
             return render_template("login.html")
     elif(request.method == "POST"):
-        if(request.form['username'] != username or request.form['password'] != password):
+        if(request.form['username'] != username):
             session['login'] = False
-            flash("Failed login!")
+            flash("Username doesn't exist")
+            return redirect(url_for("login"))
+        elif(request.form['password'] != password):
+            session['login'] = False
+            flash("Password does not match up with username")
             return redirect(url_for("login"))
         else:
-            session['login'] = True
             session['user'] = request.form['username']
+            session['login'] = True
             flash("You have successfully logged in!")
             return redirect(url_for("home"))
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
-    return "register"
+    return render_template("register.html")
 
 if __name__ == "__main__":
 	app.debug = True

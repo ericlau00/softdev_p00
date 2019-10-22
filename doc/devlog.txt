@@ -58,3 +58,8 @@ gorbachevY -- 2019-09-22 08:36
 lauE -- 2019-10-22 08:40
     create app routes for root, home, login, and register
     correct login behavior for one user
+
+lauE -- 2019-10-22 16:06
+    fix login logic 
+    prevent access to login page if logged in 
+    prevent access to home page if logged out
