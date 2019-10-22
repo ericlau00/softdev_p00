@@ -63,3 +63,10 @@ lauE -- 2019-10-22 16:06
     fix login logic 
     prevent access to login page if logged in 
     prevent access to home page if logged out
+
+gorbachevY -- 2019-09-22 18:23
+    augmented component map:
+	associated each frontend feature with a utl function
+	adjusted wording
+    added entries_arc to store full archive of all entry versions
+	in order to increase efficiency of recent entry retrieval
