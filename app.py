@@ -42,10 +42,6 @@ def login():
             session['user'] = request.form['username']
             flash("You have successfully logged in!")
             return redirect(url_for("home"))
-    # if(request.method == "POST"):
-    #     return "this is a post"
-    # elif(request.method == "GET"):
-    #     return "this is a get"
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
