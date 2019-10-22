@@ -16,3 +16,10 @@ lauE -- 2019-10-20 21:30
 
 gorbachevY -- 2019-10-20 21:37
     Push more boiler plate code 
+
+lauE -- 2019-10-21 20:42
+    Never be afraid to ask questions about something you don't, even if they are really small.
+    Never be afraid to suggest and ask for better ways to do something.
+    Make meaningful comments on your code 
+    Review each other's code after every commit to make sure you understand its use, and to make sure its free of errors 
+    Stick to the basics. Don't get caught up in libraries or use things that you don't fully understand 
