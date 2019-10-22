@@ -7,7 +7,7 @@ lauE -- 2019-10-20 20:30
 lauE -- 2019-10-20 20:53
     Add roles and project titles to README.
 
-LeeJo -- 2019-10-20 21:16
+leeJo -- 2019-10-20 21:16
     Updated Design Doc and Roles
 
 lauE -- 2019-10-20 21:30
@@ -23,3 +23,14 @@ lauE -- 2019-10-21 20:42
     Make meaningful comments on your code 
     Review each other's code after every commit to make sure you understand its use, and to make sure its free of errors 
     Stick to the basics. Don't get caught up in libraries or use things that you don't fully understand 
+leeJo -- 2019-10-21 20:48
+    inner-join
+    returns rows from the A table that only has the corresponding row in B table.
+    cross-join
+    It combines every row from the first table (table1) with every row from the second table (table2) to form the result set.
+    left-join
+    Returns a result set that includes:
+    - Rows in table A (left table) that have corresponding rows in table B.
+    - Rows in the table A table and the rows in the table B filled with NULL values in case the row from table A does not have any        corresponding rows in table B.
+    Would be useful when querying for blogs when you’re looking at a user’s profile because it can return a null if nothing           exists
+    
