@@ -33,7 +33,12 @@ def home():
 @app.route("/login", methods=["GET","POST"])
 def login():
     if(request.method == "GET"):
-        return render_template("login.html")
+        if not 'login' in session:
+            session['login'] = False
+        if 'user' in session and session['login']:
+            return redirect(url_for("home"))
+        else:
+            return render_template("login.html")
     elif(request.method == "POST"):
         if(request.form['username'] != username or request.form['password'] != password):
             session['login'] = False
