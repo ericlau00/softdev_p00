@@ -1,3 +1,8 @@
+Team SeQueL - Joseph Lee, Yevgeniy Gorbachev, Eric Lau
+SoftDev1 pd1
+P0 The Art of Storytellin'
+2019-10-28
+
 lauE -- 2019-10-18 01:24
     Set up GitHub Project and created devlog.
 
@@ -49,3 +54,7 @@ lauE -- 2019-10-22 00:07
 
 gorbachevY -- 2019-09-22 08:36
     Made utl module files
+
+lauE -- 2019-10-22 08:40
+    create app routes for root, home, login, and register
+    correct login behavior for one user
