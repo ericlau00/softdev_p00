@@ -7,6 +7,7 @@ import os
 
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
+<<<<<<< HEAD
 
 username = "user"
 password = "password"
@@ -32,3 +33,5 @@ def login():
         return "this is a post"
     elif(request.method == "GET"):
         return "this is a get"
+=======
+>>>>>>> b4831cb97c38ca9983e5af49f603d895002fc4a8
