@@ -24,13 +24,15 @@ lauE -- 2019-10-21 20:42
     Review each other's code after every commit to make sure you understand its use, and to make sure its free of errors 
     Stick to the basics. Don't get caught up in libraries or use things that you don't fully understand 
 leeJo -- 2019-10-21 20:48
-    inner-join
+    INNER-JOIN
     returns rows from the A table that only has the corresponding row in B table.
-    cross-join
+    
+    CROSS-JOIN
     It combines every row from the first table (table1) with every row from the second table (table2) to form the result set.
-    left-join
+    
+    LEFT-JOIN
     Returns a result set that includes:
     - Rows in table A (left table) that have corresponding rows in table B.
     - Rows in the table A table and the rows in the table B filled with NULL values in case the row from table A does not have any        corresponding rows in table B.
-    Would be useful when querying for blogs when you’re looking at a user’s profile because it can return a null if nothing           exists
+    It would be useful when querying for blogs when you’re looking at a user’s profile because it can return a null if nothing           exists
     
