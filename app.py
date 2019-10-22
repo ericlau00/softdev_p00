@@ -29,7 +29,19 @@ def login():
     if(request.method == "GET"):
         return render_template("login.html")
     elif(request.method == "POST"):
-        return "post"
+        if(request.form['username'] != username):
+            flash("Failed login!")
+            session['reason'] = 'username'
+            return redirect(url_for("login"))
+        elif(request.form['password'] != password):
+            flash("Failed login!")
+            session['reason'] = "password"
+            return redirect(url_for("login"))
+        else:
+            session['login'] = True
+            session['user'] = request.form['username']
+            flash("You have successfully logged in!")
+            return redirect(url_for("home"))
     # if(request.method == "POST"):
     #     return "this is a post"
     # elif(request.method == "GET"):
