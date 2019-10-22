@@ -11,11 +11,14 @@
       <h4>Joseph Lee, Yevgeniy, Eric</h4><br>
       {% extends "layout.html" %}
       {% block body %}
-      <span style="color:#ff0300">
-        Welcome!
-      </span>
-      <form action="/logout" method="get">
-        <button type="submit" formaction="/logout">Logout</button><br>
+      <h1>Login</h1>
+      {% if error %}
+        <p class=error><strong>Error:</strong> {{ error }}
+          {% endif %}
+          <form action="/auth" method='get'>
+            Username: <input type="text" name="username"><br>
+            Password: <input type="text" name="password"><br>
+          <input type="submit" value="Login"><br>
       </form>
       <a href="/register">Create an account</a>
       {% endblock %}
