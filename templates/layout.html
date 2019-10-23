@@ -1,12 +1,31 @@
 <!DOCTYPE html>
-<title>My Application</title>
-{% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <ul class=flashes>
+<html>
+
+<head>
+  <title>{{title}}</title>
+</head>
+
+<body>
+  <center>
+    <h1>Tumblr: the SeQueL</h1>
+    <h4> Joseph Lee, Yevgeniy Gorbachev, Eric Lau</h4>
+
+    {% block header %}
+    {% endblock %}
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
     {% for message in messages %}
-      {{ message }}
+    {{ message }} <br>
     {% endfor %}
-    </ul>
-  {% endif %}
-{% endwith %}
-{% block body %}{% endblock %}
+    {% endif %}
+    {% endwith %}
+    <br>
+    
+    {% block body %}
+    {% endblock %}
+  </center>
+
+</body>
+
+</html>

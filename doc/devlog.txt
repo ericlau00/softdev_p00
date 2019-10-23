@@ -63,3 +63,6 @@ lauE -- 2019-10-22 16:06
     fix login logic 
     prevent access to login page if logged in 
     prevent access to home page if logged out
+
+lauE -- 2019-10-23 08:22
+    change templating of home, login, and register 

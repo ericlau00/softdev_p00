@@ -26,7 +26,10 @@ def home():
     if not 'login' in session:
         session['login'] = False
     if 'user' in session and session['login']:
-        return render_template("home.html")
+        return render_template(
+            "home.html",
+            title= "Home"
+            )
     else:
         return redirect(url_for("login"))
 
@@ -38,7 +41,10 @@ def login():
         if 'user' in session and session['login']:
             return redirect(url_for("home"))
         else:
-            return render_template("login.html")
+            return render_template(
+                "login.html",
+                title= "Login"
+                )
     elif(request.method == "POST"):
         if(request.form['username'] != username):
             session['login'] = False
