@@ -8,7 +8,7 @@ lauE -- 2019-10-18 01:24
 
 lauE -- 2019-10-20 20:30
     Add design.pdf v0 which was contributed to by all members.
-  
+
 lauE -- 2019-10-20 20:53
     Add roles and project titles to README.
 
@@ -17,33 +17,33 @@ leeJo -- 2019-10-20 21:16
 
 lauE -- 2019-10-20 21:30
     Change spacing in design doc
-    Push boiler plate code 
+    Push boiler plate code
 
 gorbachevY -- 2019-10-20 21:37
-    Push more boiler plate code 
+    Push more boiler plate code
 
 lauE -- 2019-10-21 20:42
     Never be afraid to ask questions about something you don't, even if they are really small.
     Never be afraid to suggest and ask for better ways to do something.
-    Make meaningful comments on your code 
-    Review each other's code after every commit to make sure you understand its use, and to make sure its free of errors 
-    Stick to the basics. Don't get caught up in libraries or use things that you don't fully understand 
+    Make meaningful comments on your code
+    Review each other's code after every commit to make sure you understand its use, and to make sure its free of errors
+    Stick to the basics. Don't get caught up in libraries or use things that you don't fully understand
 
 leeJo -- 2019-10-21 20:48
     INNER-JOIN
     returns rows from the A table that only has the corresponding row in B table.
-    It would be useful when querying for blogs when you’re looking at a user’s profile 
-    
+    It would be useful when querying for blogs when you’re looking at a user’s profile
+
     CROSS-JOIN
     It combines every row from the first table (table1) with every row from the second table (table2) to form the result set.
     Don't currently see a use case for this
-    
+
     LEFT-JOIN
     Returns a result set that includes:
     - Rows in table A (left table) that have corresponding rows in table B.
     - Rows in the table A table and the rows in the table B filled with NULL values in case the row from table A does not have any corresponding rows in table B.
     It would be useful when querying for entries that belong to a blog or comments that belong to an entry because there may not be anything in those sets and it would be useful to know that they are NULL.
-    
+
 lauE -- 2019-10-22 00:07
     Fix minor typos and missing words
     Add what search results displays
@@ -59,10 +59,18 @@ lauE -- 2019-10-22 08:40
     create app routes for root, home, login, and register
     correct login behavior for one user
 
+leeJo -- 2019-10-22 8:42
+    created all html templates
+    started writing login.html, home.html
+    started writing app.py
+
 lauE -- 2019-10-22 16:06
-    fix login logic 
-    prevent access to login page if logged in 
+    fix login logic
+    prevent access to login page if logged in
     prevent access to home page if logged out
+
+leeJo -- 2019-10-22 17:02
+    deleted redundant portions of app.py and code for flash mechanism
 
 gorbachevY -- 2019-09-22 18:23
     augmented component map:
@@ -72,4 +80,4 @@ gorbachevY -- 2019-09-22 18:23
 	in order to increase efficiency of recent entry retrieval
 
 lauE -- 2019-10-23 08:22
-    change templating of home, login, and register 
+    change templating of home, login, and register

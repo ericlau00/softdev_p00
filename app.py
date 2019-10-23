@@ -5,6 +5,7 @@
 
 from flask import Flask, request, redirect, session, render_template, url_for, flash
 import os
+import utl
 
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
@@ -14,18 +15,14 @@ password = "password"
 
 @app.route("/", methods=["GET"])
 def root():
-    if not 'login' in session:
-        session['login'] = False
-    if 'user' in session and session['login']:
+    if 'user' in session:
         return redirect(url_for("home"))
     else:
         return redirect(url_for("login"))
 
 @app.route("/home", methods=["GET"])
 def home():
-    if not 'login' in session:
-        session['login'] = False
-    if 'user' in session and session['login']:
+    if 'user' in session:
         return render_template(
             "home.html",
             title= "Home"
@@ -36,9 +33,7 @@ def home():
 @app.route("/login", methods=["GET","POST"])
 def login():
     if(request.method == "GET"):
-        if not 'login' in session:
-            session['login'] = False
-        if 'user' in session and session['login']:
+        if 'user' in session:
             return redirect(url_for("home"))
         else:
             return render_template(
@@ -47,16 +42,13 @@ def login():
                 )
     elif(request.method == "POST"):
         if(request.form['username'] != username):
-            session['login'] = False
             flash("Username doesn't exist")
             return redirect(url_for("login"))
         elif(request.form['password'] != password):
-            session['login'] = False
             flash("Password does not match up with username")
             return redirect(url_for("login"))
         else:
             session['user'] = request.form['username']
-            session['login'] = True
             flash("You have successfully logged in!")
             return redirect(url_for("home"))
 
@@ -64,6 +56,12 @@ def login():
 def register():
     return render_template("register.html")
 
+@app.route("/logout", methods = ["GET","POST"])
+def logout():
+        # remove the username from te session if it's there
+        session.pop('user', None)
+        flash('You were successfully logged out!')
+        return redirect(url_for('login'))
 if __name__ == "__main__":
 	app.debug = True
 	app.run()
