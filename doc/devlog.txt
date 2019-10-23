@@ -81,3 +81,6 @@ gorbachevY -- 2019-09-22 18:23
 
 lauE -- 2019-10-23 08:22
     change templating of home, login, and register
+
+lauE -- 2019-10-23 14:26
+    add comments for how to integrate login/register frontend with backend
