@@ -54,7 +54,16 @@ def login():
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
-    return render_template("register.html")
+    if(request.method == "GET"):
+        return render_template("register.html")
+    if(request.method == "POST"):
+        if request.form['password'] != request.form['confirmpassword']:
+            flash("Passwords do not match")
+            return render_template("register.html")
+        else:
+            session['user'] = request.form['username']
+            return redirect(url_for("home"))
+
 
 @app.route("/logout", methods = ["GET","POST"])
 def logout():
