@@ -5,7 +5,7 @@
 
 from flask import Flask, request, redirect, session, render_template, url_for, flash
 import os
-from utl import *
+from utl import acc
 
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
@@ -76,11 +76,25 @@ def logout():
         return redirect(url_for('login'))
 
 @app.route("/blog/<blog_id>", methods = ["GET","POST"])
-def blog():
+def view_blog():
     render_template("blog.html",
-    content = get_blog_content(blog_id), 
-    is_owner = is_owner(session['user']))
-    
+    blog_id = blog_id,
+    content = get_blog_content(blog_id),
+    is_owner = is_owner(blog_id,session['user']))
+
+@app.route("/blog/<blog_id>/entry/<entry_id>", methods = ["GET","POST"])
+def view_entry():
+    render_template("entry.html",
+    content = get_entry_content(entry_id),
+    is_owner = is_owner(blog_id,session['user']))
+
+@app.route("/blog/<blog_id>/create_entry", methods = ["GET","POST"])
+def yolooo():
+    return 0;
+@app.route("/blog/<blog_id>/entry/edit", methods = ["GET","POST"])
+def yolo():
+    return 0
+
 if __name__ == "__main__":
 	app.debug = True
 	app.run()
