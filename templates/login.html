@@ -1,24 +1,16 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>
-      Form
-    </title>
-  </head>
-  <body>
-    <center>
-      <h1>Tumblr: the SeQueL</h1>
-      <h4>Joseph Lee, Yevgeniy, Eric</h4><br>
-      {% extends "layout.html" %}
-      {% block body %}
-      <h1>Login</h1>
-          <form action="/login" method='post'>
-            Username: <input type="text" name="username"><br>
-            Password: <input type="text" name="password"><br>
-          <input type="submit" value="Login"><br>
-      </form>
-      <a href="/register">Create an account</a>
-      {% endblock %}
-    </center>
-  </body>
-</html>
+{% extends "layout.html" %}
+
+{% block header %}
+<h1> Login </h1>
+{% endblock %}
+
+{% block body %}
+<form action="/login" method="post">
+  Username: <input type="text" name="username"><br>
+  Password: <input type="password" name="password"><br>
+  <input type="submit" value="Login"><br>
+</form>
+<br>
+<a href="/register">Don't have an account? Register</a>
+</center>
+{% endblock%}
