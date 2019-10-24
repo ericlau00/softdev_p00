@@ -7,15 +7,13 @@ __dbfile__ = '../data/sitedata.db'
 
 #checks account credentials
 def verify_acc(un, pw):
-    hpw = hash(pw)
+    hpw = __hash(pw)
     try:
         db = sqlite3.connect(__dbfile__)
-        userinfo = db.execute('select username, password from users where username = ?', (un,))
-        status = [item for item in userinfo][0][1] == hpw
-        print(userinfo)
-        print(status)
-        return status
-    except sqlite3.Error as error:
+        userinfo = db.execute('select username, password from users where username=?', (un,)) # find userinfo
+        userinfo = [item for item in userinfo][0] # take first entry (should be at most one anyway)
+        return userinfo[1] == hpw # check password hashes
+    except IndexError as error: # no such username
         print(error)
         return False
     
@@ -25,10 +23,10 @@ def create_acc(un, pw):
     hpw = __hash(pw)
     try:
         db = sqlite3.connect(__dbfile__)
-        db.execute('insert into users values (?,?,?);', (__count(), un, hpw))
+        db.execute('insert into users values (?,?,?);', (__count(), un, hpw)) # next index for userid
         db.commit()
         return True
-    except sqlite3.Error as error:
+    except sqlite3.Error as error: #uniqueness error
         return False
     
 def __hash(txt):
