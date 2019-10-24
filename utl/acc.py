@@ -3,8 +3,8 @@
 import sqlite3
 from hashlib import md5
 
-__dbfile__ = '../data/sitedata.db'
-db = sqlite3.connect(__dbfile__)
+__dbfile__ = './data/sitedata.db'
+db = sqlite3.connect(__dbfile__, check_same_thread=False)
 c = db.cursor()
 
 c.execute("create table if not exists users (id integer primary_key, username text, password text);")
@@ -26,6 +26,8 @@ def push_acc(un, pw):
     if [boolean for boolean in exists][0][0] == 0:
         uid = count() + 1
         insert(uid, un, pw)
+        db.commit()
+        db.close()
         return True
     return False 
 
@@ -36,5 +38,5 @@ def count():
     count = c.execute('select count(*) from users;')
     return [num for num in count][0][0]
 
-db.commit()
-db.close()
+def close():
+    db.close()

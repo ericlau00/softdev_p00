@@ -60,7 +60,7 @@ def register():
         if request.form['password'] != request.form['confirmpassword']:
             flash("Passwords do not match")
             return render_template("register.html")
-        elif (utl.push_acc(request.form['username'],request.form['password'])):
+        elif (acc.push_acc(request.form['username'],request.form['password'])):
             return redirect(url_for("login"))
         else:
             flash("Username already exists")

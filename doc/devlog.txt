@@ -89,3 +89,7 @@ lauE -- 2019-10-23 23:53
     create table in acc.py
     check for if username is already in database
     does not include password hashing
+
+lauE -- 2019-10-24 00:42
+    fix import of utl
+    change threading of database connection
