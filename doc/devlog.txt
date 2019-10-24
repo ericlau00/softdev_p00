@@ -96,3 +96,7 @@ lauE -- 2019-10-24 00:42
 
 lauE -- 2019-10-24 00:50
     successful fix of verify account when logging in
+
+lauE -- 2019-10-24 01:06
+    make check if user does not exist so it returns invalid credentials
+    don't close database after account registration
