@@ -5,7 +5,7 @@
 
 from flask import Flask, request, redirect, session, render_template, url_for, flash
 import os
-from utl import acc
+from utl import *
 
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
@@ -25,7 +25,8 @@ def home():
     if 'user' in session:
         return render_template(
             "home.html",
-            title= "Home"
+            title= "Home",
+            blogs = blogs.get_blogs()
             )
     else:
         return redirect(url_for("login"))
@@ -73,7 +74,11 @@ def logout():
         session.pop('user', None)
         flash('You were successfully logged out!')
         return redirect(url_for('login'))
-
+@app.route("/blog/<blog_id>", methods = ["GET","POST"])
+def blog():
+    render_template("blog.html",
+    content = get_blog_content(blog_id), 
+    is_owner = is_owner(session['user']))
 if __name__ == "__main__":
 	app.debug = True
 	app.run()
