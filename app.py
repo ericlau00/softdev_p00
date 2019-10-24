@@ -5,7 +5,7 @@
 
 from flask import Flask, request, redirect, session, render_template, url_for, flash
 import os
-import utl
+from utl import acc
 
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
@@ -41,16 +41,13 @@ def login():
                 title= "Login"
                 )
     elif(request.method == "POST"):
-        if(request.form['username'] != username): ##if request.form['username'] is not in the database
-            flash("Username doesn't exist")
-            return redirect(url_for("login"))
-        elif(request.form['password'] != password): ##if request.form['password'] does not match password of username 
-            flash("Password does not match up with username")
-            return redirect(url_for("login"))
-        else:
+        if(utl.verify_acc(request.form['username'],request.form['password'])):
             session['user'] = request.form['username']
             flash("You have successfully logged in!")
             return redirect(url_for("home"))
+        else:
+            flash("Invalid credentials")
+            return redirect(url_for("login"))
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -60,16 +57,14 @@ def register():
             title= "Register"
             )
     if(request.method == "POST"):
-        ## if username is already in the database,
-            # flash username take
-            #return render_template("register.html")
         if request.form['password'] != request.form['confirmpassword']:
             flash("Passwords do not match")
             return render_template("register.html")
+        elif (utl.push_acc(request.form['username'],request.form['password'])):
+            return redirect(url_for("login"))
         else:
-            # add account information to the database 
-            session['user'] = request.form['username']
-            return redirect(url_for("home"))
+            flash("Username already exists")
+            return render_template("register.html")
 
 
 @app.route("/logout", methods = ["GET","POST"])
@@ -78,7 +73,7 @@ def logout():
         session.pop('user', None)
         flash('You were successfully logged out!')
         return redirect(url_for('login'))
-        
+
 if __name__ == "__main__":
 	app.debug = True
 	app.run()
