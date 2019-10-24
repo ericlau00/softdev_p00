@@ -5,7 +5,7 @@
 
 from flask import Flask, request, redirect, session, render_template, url_for, flash
 import os
-import utl
+from utl import *
 
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
@@ -25,7 +25,8 @@ def home():
     if 'user' in session:
         return render_template(
             "home.html",
-            title= "Home"
+            title= "Home",
+            blogs = blogs.get_blogs()
             )
     else:
         return redirect(url_for("login"))
@@ -41,16 +42,13 @@ def login():
                 title= "Login"
                 )
     elif(request.method == "POST"):
-        if(request.form['username'] != username): ##if request.form['username'] is not in the database
-            flash("Username doesn't exist")
-            return redirect(url_for("login"))
-        elif(request.form['password'] != password): ##if request.form['password'] does not match password of username
-            flash("Password does not match up with username")
-            return redirect(url_for("login"))
-        else:
+        if(acc.verify_acc(request.form['username'],request.form['password'])):
             session['user'] = request.form['username']
             flash("You have successfully logged in!")
             return redirect(url_for("home"))
+        else:
+            flash("Invalid credentials")
+            return redirect(url_for("login"))
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -63,7 +61,7 @@ def register():
         if request.form['password'] != request.form['confirmpassword']:
             flash("Passwords do not match")
             return render_template("register.html")
-        elif (utl.create_account(request.form['username'],request.form['password'])):
+        elif (acc.create_acc(request.form['username'],request.form['password'])):
             return redirect(url_for("login"))
         else:
             flash("Username already exists")
@@ -77,6 +75,12 @@ def logout():
         flash('You were successfully logged out!')
         return redirect(url_for('login'))
 
+@app.route("/blog/<blog_id>", methods = ["GET","POST"])
+def blog():
+    render_template("blog.html",
+    content = get_blog_content(blog_id), 
+    is_owner = is_owner(session['user']))
+    
 if __name__ == "__main__":
 	app.debug = True
 	app.run()
