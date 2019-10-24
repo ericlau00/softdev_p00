@@ -1,1 +1,16 @@
 {% extends "layout.html"}
+
+{% block body %}
+<table>
+    <td>Home</td>
+    <td>Search</td>
+    <td>Profile</td>
+    <td>Settings</td>
+    <td><a href="/logout">Logout</a></td>
+</table>
+<a href = "/blog/{{blog_id}}/create_entry"> Create a new entry</a>
+<h2> {{Blog Title}} </h2>
+{% for entry in entries %}
+{{ entry }} <br>
+<% endfor %>
+{% endblock %}
