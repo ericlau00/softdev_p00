@@ -84,3 +84,8 @@ lauE -- 2019-10-23 08:22
 
 lauE -- 2019-10-23 14:26
     add comments for how to integrate login/register frontend with backend
+
+lauE -- 2019-10-23 23:53
+    create table in acc.py
+    check for if username is already in database
+    does not include password hashing
