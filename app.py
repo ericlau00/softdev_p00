@@ -41,10 +41,10 @@ def login():
                 title= "Login"
                 )
     elif(request.method == "POST"):
-        if(request.form['username'] != username):
+        if(request.form['username'] != username): ##if request.form['username'] is not in the database
             flash("Username doesn't exist")
             return redirect(url_for("login"))
-        elif(request.form['password'] != password):
+        elif(request.form['password'] != password): ##if request.form['password'] does not match password of username
             flash("Password does not match up with username")
             return redirect(url_for("login"))
         else:
@@ -55,14 +55,19 @@ def login():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if(request.method == "GET"):
-        return render_template("register.html")
+        return render_template(
+            "register.html",
+            title= "Register"
+            )
     if(request.method == "POST"):
         if request.form['password'] != request.form['confirmpassword']:
             flash("Passwords do not match")
             return render_template("register.html")
+        elif (utl.crate_account(request.form['username'],request.form['password'])):
+            return redirect(url_for("login"))
         else:
-            session['user'] = request.form['username']
-            return redirect(url_for("home"))
+            flash("Username already exists")
+            return render_template("register.html")
 
 
 @app.route("/logout", methods = ["GET","POST"])
@@ -71,6 +76,7 @@ def logout():
         session.pop('user', None)
         flash('You were successfully logged out!')
         return redirect(url_for('login'))
+
 if __name__ == "__main__":
 	app.debug = True
 	app.run()
