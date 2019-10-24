@@ -41,7 +41,7 @@ def login():
                 title= "Login"
                 )
     elif(request.method == "POST"):
-        if(utl.verify_acc(request.form['username'],request.form['password'])):
+        if(acc.verify_acc(request.form['username'],request.form['password'])):
             session['user'] = request.form['username']
             flash("You have successfully logged in!")
             return redirect(url_for("home"))

@@ -93,3 +93,6 @@ lauE -- 2019-10-23 23:53
 lauE -- 2019-10-24 00:42
     fix import of utl
     change threading of database connection
+
+lauE -- 2019-10-24 00:50
+    successful fix of verify account when logging in
