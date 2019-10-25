@@ -5,7 +5,7 @@
 
 from flask import Flask, request, redirect, session, render_template, url_for, flash
 import os
-from utl import acc
+from utl import acc, blogs
 
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
@@ -23,10 +23,14 @@ def root():
 @app.route("/home", methods=["GET"])
 def home():
     if 'user' in session:
+        count = blogs.count()
+        info = []
+        for i in range(count):
+            info.append(blogs.describe(i))
         return render_template(
             "home.html",
             title= "Home",
-            blogs = blogs.get_blogs()
+            blogs = info
             )
     else:
         return redirect(url_for("login"))
@@ -67,33 +71,42 @@ def register():
             flash("Username already exists")
             return render_template("register.html")
 
+@app.route("/profile", methods=["GET"])
+def profile():
+    return render_template("profile.html")
 
 @app.route("/logout", methods = ["GET","POST"])
 def logout():
-        # remove the username from te session if it's there
+        # remove the username from the session if it's there
         session.pop('user', None)
         flash('You were successfully logged out!')
         return redirect(url_for('login'))
 
+@app.route("/settings", methods = ["GET", "POST"])
+def settings():
+    return render_template("settings.html")
+    
 @app.route("/blog/<blog_id>", methods = ["GET","POST"])
-def view_blog():
-    render_template("blog.html",
-    blog_id = blog_id,
-    content = get_blog_content(blog_id),
-    is_owner = is_owner(blog_id,session['user']))
+def view_blog(blog_id):
+    return render_template("blog.html",
+        # blog_id = blog_id,
+        # description = blog.describe(blog_id),
+        # content = get_blog_content(blog_id),
+        # is_owner = is_owner(blog_id,session['user'])
+        )
 
-@app.route("/blog/<blog_id>/entry/<entry_id>", methods = ["GET","POST"])
-def view_entry():
-    render_template("entry.html",
-    content = get_entry_content(entry_id),
-    is_owner = is_owner(blog_id,session['user']))
+# @app.route("/blog/<blog_id>/entry/<entry_id>", methods = ["GET","POST"])
+# def view_entry():
+#     render_template("entry.html",
+#     content = get_entry_content(entry_id),
+#     is_owner = is_owner(blog_id,session['user']))
 
-@app.route("/blog/<blog_id>/create_entry", methods = ["GET","POST"])
-def yolooo():
-    return 0;
-@app.route("/blog/<blog_id>/entry/edit", methods = ["GET","POST"])
-def yolo():
-    return 0
+# @app.route("/blog/<blog_id>/create_entry", methods = ["GET","POST"])
+# def yolooo():
+#     return 0
+# @app.route("/blog/<blog_id>/entry/edit", methods = ["GET","POST"])
+# def yolo():
+#     return 0
 
 if __name__ == "__main__":
 	app.debug = True

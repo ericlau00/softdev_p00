@@ -4,16 +4,24 @@
 {% endblock %}
 
 {% block body %}
+{% block nav %}
 <table>
     <td>Home</td>
     <td>Search</td>
-    <td>Profile</td>
-    <td>Settings</td>
+    <td><a href="/profile">Profile</a></td>
+    <td><a href="/settings">Settings</a></td>
     <td><a href="/logout">Logout</a></td>
 </table>
+<<<<<<< HEAD
 
 
 {% for blog in blogs %}
 <a href="/blog/{{blog[0]}}">utl.blogs.describe(blogid)</a> <br>
 <% endfor %>
+=======
+>>>>>>> 9449c9d7915c9cbbe751c67078afeb8de4332446
+{% endblock %}
+{% for blog in blogs %}
+<a href="/blog/{{blog[1]}}"> {{blog[2]}}</a> by {{blog[0]}} <br>
+{% endfor %}
 {% endblock %}
