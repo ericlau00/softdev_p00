@@ -107,10 +107,15 @@ def view_blog(blog_id):
             )
     else:
         return redirect(url_for("login"))
-@app.route("/profile/create_blog")
+@app.route("/profile/create_blog", methods =["GET","POST"])
 def create_blog():
     if 'user' in session:
-        return render_template("create_blog.html")
+        if(request.method == "GET"):
+            return render_template("create_blog.html")
+        if(request.method == "POST"):
+            if(request.form['blog_title'] !=0):
+                flash("You have successfully created a blog!")
+                return redirect(url_for("profile"))
     else:
         return redirect(url_for("login"))
 # @app.route("/blog/<blog_id>/entry/<entry_id>", methods = ["GET","POST"])
