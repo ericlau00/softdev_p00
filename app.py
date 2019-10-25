@@ -77,8 +77,9 @@ def profile():
         count = blogs.count()
         info = []
         for i in range(count):
-        info.append(blogs.describe(i))
-        return render_template("profile.html", )
+            if (session['user'] == blogs.get_user(i))
+                info.append(blogs.describe(i))
+        return render_template("profile.html", blogs = info)
     else:
         return redirect(url_for("login"))
 
