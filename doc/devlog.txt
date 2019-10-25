@@ -115,3 +115,6 @@ gorbachevY - 2019-10-24 10:37
         Another exception for the username not being acceptable for whatever reason
     Re-created the database
 
+lauE -- 2019-10-24 20:18
+    Work on blogs backend:
+        Be able to create a blog and request blog information
