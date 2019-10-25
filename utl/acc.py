@@ -8,7 +8,7 @@ __dbfile__ = os.path.dirname(os.path.abspath(__file__)) + '/../data/sitedata.db'
 
 def init():
     db = sqlite3.connect(__dbfile__)
-    db.execute('CREATE TABLE IF NOT EXISTS users (userid INTEGER PRIMARY KEY, username TEXT, password TEXT);')
+    db.execute('CREATE TABLE IF NOT EXISTS users (userid INTEGER PRIMARY KEY, username TEXT UNIQUE, password TEXT);')
     db.commit()
 
 #checks account credentials
