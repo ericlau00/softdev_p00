@@ -133,3 +133,6 @@ lauE -- 2019-10-25 01:17
 lauE -- 2019-10-25 01:41
     Add profile and settings routes
     Fix jinja inheritance structure for navigation bar
+
+gorbachevY -- 2019-10-25 17:22
+    Modified verify_acc to return userid if login successful
