@@ -1,6 +1,7 @@
 import sqlite3
+import os
 
-__dbfile__ = '../data/sitedata.db'
+__dbfile__ = os.path.dirname(os.path.abspath(__file__)) + '/../data/sitedata.db'
 
 def create_blog(userid, title):
     db = sqlite3.connect(__dbfile__)

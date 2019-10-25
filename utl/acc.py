@@ -2,8 +2,9 @@
 
 import sqlite3
 from hashlib import md5
+import os
 
-__dbfile__ = '../data/sitedata.db'
+__dbfile__ = os.path.dirname(os.path.abspath(__file__)) + '/../data/sitedata.db'
 
 #checks account credentials
 def verify_acc(un, pw):
@@ -27,6 +28,7 @@ def create_acc(un, pw):
         db.commit()
         return True
     except sqlite3.Error as error: #uniqueness error
+        print(error)
         return False
     
 def __hash(txt):
@@ -38,3 +40,5 @@ def __count():
     db = sqlite3.connect(__dbfile__)
     count = db.execute('select count(*) from users;')
     return [num for num in count][0][0]
+
+create_acc('eric','eric')
