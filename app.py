@@ -73,7 +73,14 @@ def register():
 
 @app.route("/profile", methods=["GET"])
 def profile():
-    return render_template("profile.html")
+    if 'user' in session:
+        count = blogs.count()
+        info = []
+        for i in range(count):
+        info.append(blogs.describe(i))
+        return render_template("profile.html", )
+    else:
+        return redirect(url_for("login"))
 
 @app.route("/logout", methods = ["GET","POST"])
 def logout():
@@ -84,16 +91,27 @@ def logout():
 
 @app.route("/settings", methods = ["GET", "POST"])
 def settings():
-    return render_template("settings.html")
-
+    if 'user' in session:
+        return render_template("settings.html")
+    else:
+        return redirect(url_for("login"))
 @app.route("/blog/<blog_id>", methods = ["GET","POST"])
 def view_blog(blog_id):
-    return render_template("blog.html",
-        blog_id = blog_id,
-        description = blog.describe(blog_id),
-        is_owner = is_owner(blog_id,session['user'])
-        )
-
+    if 'user' in session:
+        return render_template("blog.html",
+            blog_id = blog_id,
+            description = blog.describe(blog_id),
+            content = blog.read_entries(blog_id),
+            is_owner = is_owner(blog_id,session['user'])
+            )
+    else:
+        return redirect(url_for("login"))
+@app.route("/profile/create_blog")
+def create_blog():
+    if 'user' in session:
+        return render_template("create_blog.html")
+    else:
+        return redirect(url_for("login"))
 # @app.route("/blog/<blog_id>/entry/<entry_id>", methods = ["GET","POST"])
 # def view_entry():
 #     render_template("entry.html",
