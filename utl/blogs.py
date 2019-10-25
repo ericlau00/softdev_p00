@@ -35,6 +35,9 @@ def describe(blogid):
         print(error)
         return False
 
+# def read_entries(blogid):
+
+
 def count():
     db = sqlite3.connect(__dbfile__)
     count = db.execute('SELECT count(*) FROM blogs;')
