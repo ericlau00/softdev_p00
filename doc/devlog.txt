@@ -136,3 +136,6 @@ lauE -- 2019-10-25 01:41
 
 gorbachevY -- 2019-10-25 17:22
     Modified verify_acc to return userid if login successful
+
+gorbachevY -- 2019-10-25 17:22
+    added create_entry and edit_entry

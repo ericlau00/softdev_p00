@@ -1,5 +1,3 @@
-#Handles account creation and usage
-
 import sqlite3
 from hashlib import md5
 import os
@@ -20,9 +18,12 @@ def verify_acc(un, pw):
     hpw = __hash(pw)
     try:
         db = sqlite3.connect(__dbfile__)
-        userinfo = db.execute('SELECT username, password FROM users WHERE username=?', (un,)) # find userinfo
+        userinfo = db.execute('SELECT * FROM users WHERE username=?', (un,)) # find userinfo
         userinfo = [item for item in userinfo][0] # take first entry (should be at most one anyway)
-        return userinfo[1] == hpw # check password hashes
+        if userinfo[2] == hpw:
+            return userinfo[0]
+        else:
+            return False
     except IndexError as error: # no such username
         print(error)
         return False
