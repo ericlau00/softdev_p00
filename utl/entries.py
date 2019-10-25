@@ -1,5 +1,8 @@
 import sqlite3
 import os
+import time
+import datetime
+
 
 __dbfile__ = os.path.dirname(os.path.abspath(__file__)) + '/../data/sitedata.db'
 
@@ -25,4 +28,6 @@ def init_arc():
 
 def create_entry(userid, blogid, content):
     db = sqlite3.connect(__dbfile__)
-    
+    count = db.execute('SELECT count(*) FROM entries WHERE blogid=?;',(blogid,))
+    count = [item for item in count][0][0]
+    db.execute('INSERT INTO entries VALUES (?,?,?,?,?)',(blogid, count, 0, time, content))
