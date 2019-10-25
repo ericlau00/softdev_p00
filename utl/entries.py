@@ -23,4 +23,6 @@ def init_arc():
                     content TEXT);''')
     db.commit()
 
-
+def create_entry(userid, blogid, content):
+    db = sqlite3.connect(__dbfile__)
+    

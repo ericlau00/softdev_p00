@@ -5,7 +5,11 @@ __dbfile__ = os.path.dirname(os.path.abspath(__file__)) + '/../data/sitedata.db'
 
 def init():
     db = sqlite3.connect(__dbfile__)
-    db.execute('CREATE TABLE IF NOT EXISTS blogs (userid INTEGER, blogid PRIMARY KEY, title TEXT UNIQUE);')
+    db.execute('''CREATE TABLE IF NOT EXISTS blogs (
+                    userid INTEGER, 
+                    blogid PRIMARY KEY, 
+                    title TEXT UNIQUE);
+                ''')
     db.commit()
 
 def create_blog(userid, title):
@@ -14,7 +18,7 @@ def create_blog(userid, title):
         db.execute('INSERT INTO blogs VALUES (?,?,?);', (userid, count(), title))
         db.commit()
         return True
-    except sqlite3.Error as error:
+    except sqlite3.Error as error: # uniqueness probably
         print(error)
         return False
 
@@ -37,7 +41,7 @@ def describe(blogid):
 
 # def read_entries(blogid):
 
-
+##SUPPLEMENTARY
 def count():
     db = sqlite3.connect(__dbfile__)
     count = db.execute('SELECT count(*) FROM blogs;')
