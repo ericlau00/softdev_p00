@@ -96,7 +96,7 @@ lauE -- 2019-10-23 23:53
 
 leeJo -- 2019-10-24 00:16
     added register username checking mechanism and added nav bar
-    
+
 lauE -- 2019-10-24 00:42
     fix import of utl
     change threading of database connection
@@ -107,6 +107,10 @@ lauE -- 2019-10-24 00:50
 lauE -- 2019-10-24 01:06
     make check if user does not exist so it returns invalid credentials
     don't close database after account registration
+    
+leeJo -- 2019-10-24 3:54
+    app rerouting
+    adding to blog loop display in home.html
 
 gorbachevY - 2019-10-24 10:37
     Fixed and finished acc:
@@ -120,7 +124,7 @@ lauE -- 2019-10-24 20:18
         Be able to create a blog and request blog information
 
 lauE -- 2019-10-25 00:53
-    Clean up database execute command formatting 
+    Clean up database execute command formatting
     Create initialize functions for database tables for clarity
 
 lauE -- 2019-10-25 01:17
@@ -128,4 +132,4 @@ lauE -- 2019-10-25 01:17
 
 lauE -- 2019-10-25 01:41
     Add profile and settings routes
-    Fix jinja inheritance structure for navigation bar 
+    Fix jinja inheritance structure for navigation bar

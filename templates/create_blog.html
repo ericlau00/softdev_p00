@@ -1,0 +1,14 @@
+{% extends "home.html" %}
+{% block header %}
+<h1> Create Blog </h1>
+{% endblock %}
+
+{% block body %}
+<form action="/profile/create_blog" method="post">
+  Blog Title: <input type="text" name="blog_title"><br>
+  <input type="submit" value="Submit form"><br>
+</form>
+<br>
+<a href="/register">Don't have an account? Register</a>
+</center>
+{% endblock%}

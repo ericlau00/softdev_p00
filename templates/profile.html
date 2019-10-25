@@ -6,6 +6,9 @@
 {% block body %}
 {{ super() }}
 
+<a href="/profile/create_blog"> Create a new blog</a>
+<br>
+
 <h2> Your Blogs </h2>
 {% for blog in blogs %}
 {{ blog }} <br>
