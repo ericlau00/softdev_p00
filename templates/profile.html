@@ -1,19 +1,13 @@
-{% extends "layout.html" %}
+{% extends "home.html" %}
 {% block header %}
 <h1> Welcome </h1>
 {% endblock %}
 
 {% block body %}
-<table>
-    <td>Home</td>
-    <td>Search</td>
-    <td>Profile</td>
-    <td>Settings</td>
-    <td><a href="/logout">Logout</a></td>
-</table>
+{{ super() }}
 
 <h2> Your Blogs </h2>
 {% for blog in blogs %}
 {{ blog }} <br>
-<% endfor %>
+{% endfor %}
 {% endblock %}

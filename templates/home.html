@@ -4,14 +4,16 @@
 {% endblock %}
 
 {% block body %}
+{% block nav %}
 <table>
     <td>Home</td>
     <td>Search</td>
-    <td>Profile</td>
-    <td>Settings</td>
+    <td><a href="/profile">Profile</a></td>
+    <td><a href="/settings">Settings</a></td>
     <td><a href="/logout">Logout</a></td>
 </table>
+{% endblock %}
 {% for blog in blogs %}
-<a href="/blog/{{blog[0]}}">{{blog[1]}}</a> <br>
-<% endfor %>
+<a href="/blog/{{blog[1]}}"> {{blog[2]}}</a> by {{blog[0]}} <br>
+{% endfor %}
 {% endblock %}
