@@ -85,14 +85,13 @@ def logout():
 @app.route("/settings", methods = ["GET", "POST"])
 def settings():
     return render_template("settings.html")
-    
+
 @app.route("/blog/<blog_id>", methods = ["GET","POST"])
 def view_blog(blog_id):
     return render_template("blog.html",
-        # blog_id = blog_id,
-        # description = blog.describe(blog_id),
-        # content = get_blog_content(blog_id),
-        # is_owner = is_owner(blog_id,session['user'])
+        blog_id = blog_id,
+        description = blog.describe(blog_id),
+        is_owner = is_owner(blog_id,session['user'])
         )
 
 # @app.route("/blog/<blog_id>/entry/<entry_id>", methods = ["GET","POST"])
