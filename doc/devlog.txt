@@ -59,7 +59,7 @@ lauE -- 2019-10-22 08:40
     create app routes for root, home, login, and register
     correct login behavior for one user
 
-leeJo -- 2019-10-22 8:42
+leeJo -- 2019-10-22 08:42
     created all html templates
     started writing login.html, home.html
     started writing app.py
@@ -108,16 +108,16 @@ lauE -- 2019-10-24 01:06
     make check if user does not exist so it returns invalid credentials
     don't close database after account registration
 
-leeJo -- 2019-10-24 3:54
-    app rerouting
-    adding to blog loop display in home.html
-
 gorbachevY - 2019-10-24 10:37
     Fixed and finished acc:
       Uses uniqueness enforcement by SQL to recognize a creation failure
       Possible next steps:
         Another exception for the username not being acceptable for whatever reason
     Re-created the database
+
+leeJo -- 2019-10-24 15:54
+    app rerouting
+    adding to blog loop display in home.html
 
 lauE -- 2019-10-24 20:18
     Work on blogs backend:
@@ -159,19 +159,25 @@ gorbachevY -- 2019-10-26 13:08
 lauE -- 2019-10-26 13:04
 	make README more comprehensive
 
-leeJo -- 2019-10-26 1:58
+leeJo -- 2019-10-26 13:58
   created a function in blogs.py to return user's blogs
   updating app rerouting
   worked on profile page
 
-leeJo -- 2019-10-26 2:14
+leeJo -- 2019-10-26 14:14
   added ability to view other peoples profiles
   added security check for viewing profile and user for edit-ability
 
-leeJo -- 2019-10-26 3:19
+leeJo -- 2019-10-26 15:19
   wrote a few basic backend functions
   created profile feature
   added security check for creating new entry
 
-leeJo -- 2019-10-26 3:58
+leeJo -- 2019-10-26 15:58
   fixed bugs
+
+laeE -- 2019-10-26 17:58
+    can create entries 
+        create template for entry creation
+        change read entries function to reflect new lines in entry input 
+        create route to create entry

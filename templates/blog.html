@@ -9,6 +9,8 @@
 <h2> {{description[1]}} by {{description[3]}}</h2>
 {% for entry in entries %}
 {{ entry['timestamp'] }} <br>
-{{ entry['content'] }} <br>
+{% for line in entry['content'] %}
+{{ line }} <br>
+{% endfor %} <br>
 {% endfor %}
 {% endblock %}

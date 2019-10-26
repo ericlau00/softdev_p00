@@ -5,7 +5,7 @@
 
 from flask import Flask, request, redirect, session, render_template, url_for, flash
 import os
-from utl import acc, blogs
+from utl import acc, blogs, entries
 
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
@@ -127,15 +127,30 @@ def create_blog():
             return redirect(url_for("profile", userid = session.get('userid')))
     else:
         return redirect(url_for("login"))
+
+@app.route("/blog/<blog_id>/create_entry", methods = ["GET","POST"])
+def create_entry(blog_id):
+    if 'user' in session:
+        if(request.method == "GET"):
+            return render_template("create_entry.html",
+                                    blog_id= blog_id)
+        elif(request.method == "POST"):
+            if request.form['entry_content'] == '' or request.form['entry_content'].isspace():
+                flash("please input some text")
+                return render_template("create_entry.html",
+                                        blog_id=blog_id)
+            entries.create_entry(blog_id, request.form['entry_content'])
+            flash("You have successfully created an entry!")
+            return redirect(url_for("view_blog", blog_id = blog_id))
+    else:
+        return redirect(url_for("login"))
+        
 # @app.route("/blog/<blog_id>/entry/<entry_id>", methods = ["GET","POST"])
 # def view_entry():
 #     render_template("entry.html",
 #     content = get_entry_content(entry_id),
 #     is_owner = is_owner(blog_id,session['user']))
 
-# @app.route("/blog/<blog_id>/create_entry", methods = ["GET","POST"])
-# def yolooo():
-#     return 0
 # @app.route("/blog/<blog_id>/entry/edit", methods = ["GET","POST"])
 # def yolo():
 #     return 0
