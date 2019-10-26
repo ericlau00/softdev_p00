@@ -70,6 +70,20 @@ def get_user_blogs(userid):
     except sqlite3.Error as error:
         print(error)
         return False
+
+def get_userid(blogid):
+    db = sqlite3.connect(__dbfile__)
+    query = db.execute(
+            '''
+            SELECT blogs.userid
+            FROM blogs
+            WHERE blogs.blogid = ?
+            ''', (blogid,)
+            )
+    try:
+        return [data for data in query][0][0]
+    except IndexError as error:
+        return False
 ##SUPPLEMENTARY
 def count():
     db = sqlite3.connect(__dbfile__)
