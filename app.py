@@ -119,9 +119,12 @@ def create_blog():
         if(request.method == "GET"):
             return render_template("create_blog.html")
         if(request.method == "POST"):
-            create_blog(session.get('userid'), request.form['blog_title'])
+            if request.form['blog_title'] == "" or request.form['blog_title'].isspace():
+                flash("please input a blog title")
+                return redirect(url_for("create_blog"))
+            blogs.create_blog(session.get('userid'), request.form['blog_title'])
             flash("You have successfully created a blog!")
-            return redirect(url_for("profile"))
+            return redirect(url_for("profile", userid = session.get('userid')))
     else:
         return redirect(url_for("login"))
 # @app.route("/blog/<blog_id>/entry/<entry_id>", methods = ["GET","POST"])
