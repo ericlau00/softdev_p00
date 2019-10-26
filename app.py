@@ -31,7 +31,7 @@ def home():
             "home.html",
             title= "Home",
             blogs = info,
-            userid = session['userid']
+            userid = session.get('userid')
             )
     else:
         return redirect(url_for("login"))
@@ -48,7 +48,7 @@ def login():
                 )
     elif(request.method == "POST"):
         session['userid'] = acc.verify_acc(request.form['username'],request.form['password'])
-        if session['userid'] != False:
+        if session.get('userid') != False:
             session['user'] = request.form['username']
             flash("You have successfully logged in!")
             return redirect(url_for("home"))
@@ -79,7 +79,7 @@ def profile(userid):
         print(blogs.get_user_blogs(userid))
         return render_template("profile.html",
                                 user_blogs = blogs.get_user_blogs(userid),
-                                is_owner = (session['userid'] == userid))
+                                is_owner = (session.get('userid') == userid))
     else:
         return redirect(url_for("login"))
 
