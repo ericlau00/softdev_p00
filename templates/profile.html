@@ -6,8 +6,10 @@
 {% block body %}
 {{ super() }}
 
+{% if is_owner %}
 <a href="/profile/create_blog"> Create a new blog</a>
 <br>
+{% endif %}
 
 <h2> Your Blogs </h2>
 {% for blog in user_blogs %}

@@ -75,7 +75,9 @@ def register():
 @app.route("/profile/<userid>", methods=["GET"])
 def profile(userid):
     if 'user' in session:
-        return render_template("profile.html", blogs = user_blogs = get_user_blogs(userid))
+        return render_template("profile.html",
+                                user_blogs = get_user_blogs(userid),
+                                is_owner = (session['user_id'] == userid))
     else:
         return redirect(url_for("login"))
 
