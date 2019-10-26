@@ -155,6 +155,23 @@ gorbachevY -- 2019-10-26 13:08
     added read_entries
     added read_entries_h
     made changes in component map
-    
+
 lauE -- 2019-10-26 13:04
 	make README more comprehensive
+
+leeJo -- 2019-10-26 1:58
+  created a function in blogs.py to return user's blogs
+  updating app rerouting
+  worked on profile page
+
+leeJo -- 2019-10-26 2:14
+  added ability to view other peoples profiles
+  added security check for viewing profile and user for edit-ability
+
+leeJo -- 2019-10-26 3:19
+  wrote a few basic backend functions
+  created profile feature
+  added security check for creating new entry
+
+leeJo -- 2019-10-26 3:58
+  fixed bugs
