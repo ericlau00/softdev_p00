@@ -73,16 +73,6 @@ def register():
             flash("Username already exists")
             return render_template("register.html")
 
-@app.route("/profile/<userid>", methods=["GET"])
-def profile(userid):
-    if 'user' in session:
-        print(blogs.get_user_blogs(userid))
-        return render_template("profile.html",
-                                user_blogs = blogs.get_user_blogs(userid),
-                                is_owner = (session.get('userid') == userid))
-    else:
-        return redirect(url_for("login"))
-
 @app.route("/logout", methods = ["GET","POST"])
 def logout():
         # remove the username from the session if it's there
@@ -108,6 +98,18 @@ def view_blog(blog_id):
             )
     else:
         return redirect(url_for("login"))
+
+@app.route("/profile/<userid>", methods=["GET"])
+def profile(userid):
+    if 'user' in session:
+        print(userid)
+        return render_template("profile.html",
+                                username = acc.get_username(userid[0]),
+                                user_blogs = blogs.get_user_blogs(userid),
+                                is_owner = (session.get('userid') == userid))
+    else:
+        return redirect(url_for("login"))
+
 @app.route("/profile/create_blog", methods =["GET","POST"])
 def create_blog():
     if 'user' in session:
