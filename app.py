@@ -46,7 +46,8 @@ def login():
                 title= "Login"
                 )
     elif(request.method == "POST"):
-        if(acc.verify_acc(request.form['username'],request.form['password'])):
+            session['user_id'] = acc.verify_acc(request.form['username'],request.form['password'])
+        if(session['user_id'] != False):
             session['user'] = request.form['username']
             flash("You have successfully logged in!")
             return redirect(url_for("home"))
@@ -71,15 +72,10 @@ def register():
             flash("Username already exists")
             return render_template("register.html")
 
-@app.route("/profile", methods=["GET"])
-def profile():
+@app.route("/profile/<userid>", methods=["GET"])
+def profile(userid):
     if 'user' in session:
-        count = blogs.count()
-        info = []
-        for i in range(count):
-            if (session['user'] == blogs.get_user(i))
-                info.append(blogs.describe(i))
-        return render_template("profile.html", blogs = info)
+        return render_template("profile.html", blogs = user_blogs = get_user_blogs(userid))
     else:
         return redirect(url_for("login"))
 
@@ -103,7 +99,7 @@ def view_blog(blog_id):
             blog_id = blog_id,
             description = blog.describe(blog_id),
             content = blog.read_entries(blog_id),
-            is_owner = is_owner(blog_id,session['user'])
+            is_owner = is_owner(blog_id,session['user_id'])
             )
     else:
         return redirect(url_for("login"))

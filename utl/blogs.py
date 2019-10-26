@@ -6,8 +6,8 @@ __dbfile__ = os.path.dirname(os.path.abspath(__file__)) + '/../data/sitedata.db'
 def init():
     db = sqlite3.connect(__dbfile__)
     db.execute('''CREATE TABLE IF NOT EXISTS blogs (
-                    userid INTEGER, 
-                    blogid PRIMARY KEY, 
+                    userid INTEGER,
+                    blogid PRIMARY KEY,
                     title TEXT UNIQUE);
                 ''')
     db.commit()
@@ -27,10 +27,10 @@ def describe(blogid):
     try:
         desc = db.execute(
             '''
-            SELECT users.username, users.userid, blogs.title 
-            FROM blogs 
-            INNER JOIN users 
-            ON blogs.userid = users.userid 
+            SELECT blogs.blogid, blogs.title, users.userid, users.username
+            FROM blogs
+            INNER JOIN users
+            ON blogs.userid = users.userid
             WHERE blogs.blogid = ?
             ''', (blogid,)
             )
@@ -39,6 +39,20 @@ def describe(blogid):
         print(error)
         return False
 
+def get_user_blogs(userid):
+    db = sqlite3.connect(__dbfile__)
+    try:
+        desc = db.execute(
+            '''
+            SELECT blogs.blogid, blogs.title
+            FROM blogs
+            WHERE blogs.userid = ?
+            ''', (userid)
+            )
+        return [data for data in desc][0]
+    except sqlite3.Error as error:
+        print(error)
+        return False
 # def read_entries(blogid):
 
 ##SUPPLEMENTARY

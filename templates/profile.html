@@ -10,7 +10,7 @@
 <br>
 
 <h2> Your Blogs </h2>
-{% for blog in blogs %}
-{{ blog }} <br>
+{% for blog in user_blogs %}
+<a href="/blog/{{blog[0]}}"> {{blog[1]}}</a><br>
 {% endfor %}
 {% endblock %}
