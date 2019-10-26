@@ -142,3 +142,9 @@ gorbachevY -- 2019-10-25 17:22
 
 gorbachevY -- 2019-10-25 20:02
     added edit_acc
+
+gorbachevY -- 2019-10-26 13:08
+    changed create_entry to take (blogid, content) as opposed to (userid, ...)
+    added read_entries
+    added read_entries_h
+    made changes in component map
