@@ -34,7 +34,7 @@ def describe(blogid):
             WHERE blogs.blogid = ?
             ''', (blogid,)
             )
-        return [data for data in desc][0]
+        return desc
     except sqlite3.Error as error:
         print(error)
         return False

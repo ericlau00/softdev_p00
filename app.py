@@ -30,7 +30,8 @@ def home():
         return render_template(
             "home.html",
             title= "Home",
-            blogs = info
+            blogs = info,
+            userid = session['userid']
             )
     else:
         return redirect(url_for("login"))
@@ -46,8 +47,8 @@ def login():
                 title= "Login"
                 )
     elif(request.method == "POST"):
-            session['user_id'] = acc.verify_acc(request.form['username'],request.form['password'])
-        if(session['user_id'] != False):
+        session['userid'] = acc.verify_acc(request.form['username'],request.form['password'])
+        if session['userid'] != False:
             session['user'] = request.form['username']
             flash("You have successfully logged in!")
             return redirect(url_for("home"))
@@ -75,9 +76,10 @@ def register():
 @app.route("/profile/<userid>", methods=["GET"])
 def profile(userid):
     if 'user' in session:
+        print(blogs.get_user_blogs(userid))
         return render_template("profile.html",
-                                user_blogs = get_user_blogs(userid),
-                                is_owner = (session['user_id'] == userid))
+                                user_blogs = blogs.get_user_blogs(userid),
+                                is_owner = (session['userid'] == userid))
     else:
         return redirect(url_for("login"))
 
@@ -94,14 +96,15 @@ def settings():
         return render_template("settings.html")
     else:
         return redirect(url_for("login"))
+
 @app.route("/blog/<blog_id>", methods = ["GET","POST"])
 def view_blog(blog_id):
     if 'user' in session:
         return render_template("blog.html",
             blog_id = blog_id,
-            description = blog.describe(blog_id),
-            content = blog.read_entries(blog_id),
-            is_owner = is_owner(blog_id,session['user_id'])
+            description = blogs.describe(blog_id)
+            #content = blogs.read_entries(blog_id),
+            #is_owner = is_owner(blog_id,session['userid'])
             )
     else:
         return redirect(url_for("login"))

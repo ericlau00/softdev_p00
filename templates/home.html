@@ -8,12 +8,12 @@
 <table>
     <td>Home</td>
     <td>Search</td>
-    <td><a href="/profile" userid = session['user_id']>Profile</a></td>
+    <td><a href="/profile/{{userid}}}">Profile</a></td>
     <td><a href="/settings">Settings</a></td>
     <td><a href="/logout">Logout</a></td>
 </table>
 {% endblock %}
 {% for blog in blogs %}
-<a href="/blog/{{blog[0]}}"> {{blog[1]}}</a> by <a href="/profile/{{blog[2]}}"> {{blog[4]}}</a>
+<a href="/blog/{{blog[0]}}"> {{blog[1]}} </a> by <a href="/profile/{{blog[2]}}"> {{blog[3]}}</a><br>
 {% endfor %}
 {% endblock %}
