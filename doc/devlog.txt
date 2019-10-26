@@ -142,3 +142,6 @@ gorbachevY -- 2019-10-25 17:22
 
 gorbachevY -- 2019-10-25 20:02
     added edit_acc
+
+lauE -- 2019-10-26 13:04
+	make README more comprehensive
