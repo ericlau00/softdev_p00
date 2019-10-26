@@ -54,8 +54,6 @@ def edit_acc(userid, new_un='', new_pw=''):
         return False
 
 def get_username(userid):
-    print('YOO')
-    print(userid)
     db = sqlite3.connect(__dbfile__)
     try:
         query = db.execute(

@@ -103,10 +103,11 @@ def view_blog(blog_id):
 @app.route("/profile/<userid>", methods=["GET"])
 def profile(userid):
     if 'user' in session:
+        print(session.get('userid') == ""+ userid)
         return render_template("profile.html",
                                 username = acc.get_username(userid),
                                 user_blogs = blogs.get_user_blogs(userid),
-                                is_owner = (session.get('userid') == userid),
+                                is_owner = (str(session.get('userid')) == userid),
                                 userid = session.get('userid')
                                 )
     else:
@@ -118,9 +119,9 @@ def create_blog():
         if(request.method == "GET"):
             return render_template("create_blog.html")
         if(request.method == "POST"):
-            if(request.form['blog_title'] !=0):
-                flash("You have successfully created a blog!")
-                return redirect(url_for("profile"))
+            create_blog(session.get('userid'), request.form['blog_title'])
+            flash("You have successfully created a blog!")
+            return redirect(url_for("profile"))
     else:
         return redirect(url_for("login"))
 # @app.route("/blog/<blog_id>/entry/<entry_id>", methods = ["GET","POST"])
