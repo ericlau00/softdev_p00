@@ -94,7 +94,7 @@ def view_blog(blog_id):
             blog_id = blog_id,
             description = blogs.describe(blog_id),
             entries = blogs.read_entries(blog_id),
-            is_owner = (session.get('userid') == blogs.get_userid(blog_id),
+            is_owner = (session.get('userid') == blogs.get_userid(blog_id)),
             userid = session.get('userid')
             )
     else:
