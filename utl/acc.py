@@ -54,6 +54,7 @@ def edit_acc(userid, new_un='', new_pw=''):
         return False
 
 def get_username(userid):
+    print('YOO')
     print(userid)
     db = sqlite3.connect(__dbfile__)
     try:
@@ -62,7 +63,7 @@ def get_username(userid):
             SELECT users.username
             FROM users
             WHERE users.userid = ?
-            ''', (userid,)
+            ''', (userid[0],)
             )
         return [data for data in query][0][0]
     except sqlite3.Error as error:

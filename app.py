@@ -94,7 +94,8 @@ def view_blog(blog_id):
             blog_id = blog_id,
             description = blogs.describe(blog_id),
             entries = blogs.read_entries(blog_id),
-            is_owner = (session.get('userid') == blogs.get_userid(blog_id))
+            is_owner = (session.get('userid') == blogs.get_userid(blog_id),
+            userid = session.get('userid')
             )
     else:
         return redirect(url_for("login"))
@@ -102,11 +103,12 @@ def view_blog(blog_id):
 @app.route("/profile/<userid>", methods=["GET"])
 def profile(userid):
     if 'user' in session:
-        print(userid)
         return render_template("profile.html",
                                 username = acc.get_username(userid),
                                 user_blogs = blogs.get_user_blogs(userid),
-                                is_owner = (session.get('userid') == userid))
+                                is_owner = (session.get('userid') == userid),
+                                userid = session.get('userid')
+                                )
     else:
         return redirect(url_for("login"))
 
