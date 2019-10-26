@@ -20,11 +20,11 @@ def verify_acc(un, pw):
         db = sqlite3.connect(__dbfile__)
         userinfo = db.execute('SELECT * FROM users WHERE username=?', (un,)) # find userinfo
         userinfo = [item for item in userinfo][0] # take first entry (should be at most one anyway)
-        if userinfo[2] == hpw:
-            return userinfo[0]
+        if userinfo[2] == hpw: 
+            return userinfo[0] # if credentials are good, return the userid
         else:
             return False
-    except IndexError as error: # no such username
+    except IndexError as error: # no such username, probably
         print(error)
         return False
     
@@ -35,9 +35,24 @@ def create_acc(un, pw):
         db.execute('INSERT INTO users VALUES (?,?,?);', (__count(), un, hpw)) # next index for userid
         db.commit()
         return True
-    except sqlite3.Error as error: #uniqueness error
+    except sqlite3.Error as error: # uniqueness error, probably
         print(error)
         return False
+
+def edit_acc(userid, new_un='', new_pw=''):
+    db = sqlite3.connect(__dbfile__)
+    try:
+        if new_un != '':
+            db.execute('UPDATE users SET username=? WHERE userid=?;',(new_un, userid))
+        if new_pw != '':
+            hpw = __hash(new_pw)
+            db.execute('UPDATE users SET password=? WHERE userid=?;',(hpw, userid))
+        db.commit()
+        return True
+    except sqlite3.Error as error:
+        print(error)
+        return False
+
     
 def __hash(txt):
     hpw = md5()
