@@ -24,8 +24,7 @@ def create_blog(userid, title):
 
 def describe(blogid):
     db = sqlite3.connect(__dbfile__)
-    try:
-        desc = db.execute(
+    query = db.execute(
             '''
             SELECT blogs.blogid, blogs.title, users.userid, users.username
             FROM blogs
@@ -34,32 +33,45 @@ def describe(blogid):
             WHERE blogs.blogid = ?
             ''', (blogid,)
             )
-        return desc
-    except sqlite3.Error as error:
-        print(error)
+    try:
+        return [data for data in query][0]
+    except IndexError as error:
         return False
+
+def read_entries(blogid):
+    db = sqlite3.connect(__dbfile__)
+    query = db.execute('''
+                    SELECT entryid, versionid, timestamp, content FROM entries
+                    WHERE blogid=?
+                    ORDER BY entryid DESC
+                    ''', (blogid,))
+    elist = [item for item in query]
+    for i in range(len(elist)):
+        elist[i] = {
+            'entryid':elist[i][0],
+            'versionid':elist[i][1],
+            'timestamp':elist[i][2],
+            'content':elist[i][3],
+
+        }
+    return elist
 
 def get_user_blogs(userid):
     db = sqlite3.connect(__dbfile__)
     try:
-        desc = db.execute(
+        query = db.execute(
             '''
             SELECT blogs.blogid, blogs.title
             FROM blogs
             WHERE blogs.userid = ?
             ''', (userid)
             )
-        return [data for data in desc][0]
+        return [data for data in query]
     except sqlite3.Error as error:
         print(error)
         return False
-# def read_entries(blogid):
-
 ##SUPPLEMENTARY
 def count():
     db = sqlite3.connect(__dbfile__)
-    count = db.execute('SELECT count(*) FROM blogs;')
-    return [num for num in count][0][0]
-
-create_blog(2, "hog")
-# describe(1)
+    query = db.execute('SELECT count(*) FROM blogs;')
+    return [num for num in query][0][0]
