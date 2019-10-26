@@ -104,7 +104,7 @@ def profile(userid):
     if 'user' in session:
         print(userid)
         return render_template("profile.html",
-                                username = acc.get_username(userid[0]),
+                                username = acc.get_username(userid),
                                 user_blogs = blogs.get_user_blogs(userid),
                                 is_owner = (session.get('userid') == userid))
     else:
