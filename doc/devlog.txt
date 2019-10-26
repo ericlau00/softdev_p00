@@ -148,3 +148,6 @@ gorbachevY -- 2019-10-26 13:08
     added read_entries
     added read_entries_h
     made changes in component map
+    
+lauE -- 2019-10-26 13:04
+	make README more comprehensive
