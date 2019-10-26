@@ -92,8 +92,8 @@ def view_blog(blog_id):
     if 'user' in session:
         return render_template("blog.html",
             blog_id = blog_id,
-            description = blogs.describe(blog_id)
-            #content = blogs.read_entries(blog_id),
+            description = blogs.describe(blog_id),
+            entries = blogs.read_entries(blog_id),
             #is_owner = is_owner(blog_id,session['userid'])
             )
     else:
