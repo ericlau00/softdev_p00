@@ -63,7 +63,7 @@ def get_username(userid):
             SELECT users.username
             FROM users
             WHERE users.userid = ?
-            ''', (userid[0],)
+            ''', (userid,)
             )
         return [data for data in query][0][0]
     except sqlite3.Error as error:

@@ -64,7 +64,7 @@ def get_user_blogs(userid):
             SELECT blogs.blogid, blogs.title
             FROM blogs
             WHERE blogs.userid = ?
-            ''', (userid[0],)
+            ''', (userid,)
             )
         return [data for data in query]
     except sqlite3.Error as error:
