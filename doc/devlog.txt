@@ -176,8 +176,14 @@ leeJo -- 2019-10-26 15:19
 leeJo -- 2019-10-26 15:58
   fixed bugs
 
-laeE -- 2019-10-26 17:58
+lauE -- 2019-10-26 17:58
     can create entries 
         create template for entry creation
         change read entries function to reflect new lines in entry input 
         create route to create entry
+
+lauE -- 2019-10-26 18:55
+    changed routing
+        pass userid to all routes so navbar fully works
+        create frontend settings and search routes 
+        add nav bar to all routes

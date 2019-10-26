@@ -1,12 +1,19 @@
 {% extends "home.html" %}
+
+{% block title %}
+Create Entry
+{% endblock %}
+
 {% block header %}
 <h1> Create Entry </h1>
 {% endblock %}
 
 {% block body %}
+{{super()}}
+<br>
 <form action="/blog/{{blog_id}}/create_entry" method="post">
     <textarea name="entry_content"></textarea><br>
-    <input type="submit" value="Submit form"><br>
+    <input type="submit" value="Create entry"><br>
 </form>
 </center>
 {% endblock%}

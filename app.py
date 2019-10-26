@@ -29,7 +29,6 @@ def home():
             info.append(blogs.describe(i))
         return render_template(
             "home.html",
-            title= "Home",
             blogs = info,
             userid = session.get('userid')
             )
@@ -44,7 +43,6 @@ def login():
         else:
             return render_template(
                 "login.html",
-                title= "Login"
                 )
     elif(request.method == "POST"):
         session['userid'] = acc.verify_acc(request.form['username'],request.form['password'])
@@ -61,7 +59,6 @@ def register():
     if(request.method == "GET"):
         return render_template(
             "register.html",
-            title= "Register"
             )
     if(request.method == "POST"):
         if request.form['password'] != request.form['confirmpassword']:
@@ -83,7 +80,38 @@ def logout():
 @app.route("/settings", methods = ["GET", "POST"])
 def settings():
     if 'user' in session:
-        return render_template("settings.html")
+        if(request.method == "GET"):
+            return render_template("settings.html",
+                                    userid = session.get('userid'))
+        elif(request.method == "POST"):
+            return render_template("settings.html",
+                                    userid=session.get('userid'))
+    else:
+        return redirect(url_for("login"))
+
+@app.route("/search", methods = ["GET", "POST"])
+def search():
+    if 'user' in session:
+        if(request.method == "GET"):
+            return render_template("search.html",
+                                    userid = session.get('userid'))
+        if(request.method == "POST"):
+            return render_template("search.html",
+                                    userid = session.get('userid'))
+    else:
+        return redirect(url_for("login"))
+
+@app.route("/profile/<userid>", methods=["GET"])
+def profile(userid):
+    username = acc.get_username(userid)
+    if 'user' in session:     
+        return render_template("profile.html",
+                                title = username,
+                                username = username,
+                                user_blogs = blogs.get_user_blogs(userid),
+                                is_owner = (str(session.get('userid')) == userid),
+                                userid = session.get('userid')
+                                )
     else:
         return redirect(url_for("login"))
 
@@ -100,28 +128,16 @@ def view_blog(blog_id):
     else:
         return redirect(url_for("login"))
 
-@app.route("/profile/<userid>", methods=["GET"])
-def profile(userid):
-    if 'user' in session:
-        print(session.get('userid') == ""+ userid)
-        return render_template("profile.html",
-                                username = acc.get_username(userid),
-                                user_blogs = blogs.get_user_blogs(userid),
-                                is_owner = (str(session.get('userid')) == userid),
-                                userid = session.get('userid')
-                                )
-    else:
-        return redirect(url_for("login"))
-
 @app.route("/profile/create_blog", methods =["GET","POST"])
 def create_blog():
     if 'user' in session:
         if(request.method == "GET"):
-            return render_template("create_blog.html")
+            return render_template("create_blog.html",
+                                    userid = session.get('userid'))
         if(request.method == "POST"):
             if request.form['blog_title'] == "" or request.form['blog_title'].isspace():
                 flash("please input a blog title")
-                return redirect(url_for("create_blog"))
+                return redirect(url_for("create_blog", userid = session.get('userid')))
             blogs.create_blog(session.get('userid'), request.form['blog_title'])
             flash("You have successfully created a blog!")
             return redirect(url_for("profile", userid = session.get('userid')))
@@ -133,12 +149,15 @@ def create_entry(blog_id):
     if 'user' in session:
         if(request.method == "GET"):
             return render_template("create_entry.html",
-                                    blog_id= blog_id)
+                                    blog_id= blog_id,
+                                    userid = session.get('userid')
+                                    )
         elif(request.method == "POST"):
             if request.form['entry_content'] == '' or request.form['entry_content'].isspace():
                 flash("please input some text")
                 return render_template("create_entry.html",
-                                        blog_id=blog_id)
+                                        blog_id=blog_id,
+                                        userid = session.get('userid'))
             entries.create_entry(blog_id, request.form['entry_content'])
             flash("You have successfully created an entry!")
             return redirect(url_for("view_blog", blog_id = blog_id))

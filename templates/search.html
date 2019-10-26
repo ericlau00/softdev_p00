@@ -1,0 +1,19 @@
+{% extends "home.html" %}
+
+{% block title %}
+Search
+{% endblock %}
+
+{% block header %}
+<h1> Search </h1>
+{% endblock %}
+
+{% block body %}
+{{ super() }}
+<br>
+<form action="/search" method="post">
+    Blog Title: <input type="text" name="blog_title"><br>
+    <input type="submit" value="Search"><br>
+</form>
+
+{% endblock %}

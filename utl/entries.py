@@ -2,7 +2,6 @@ import sqlite3
 import os
 import datetime
 
-
 __dbfile__ = os.path.dirname(os.path.abspath(__file__)) + '/../data/sitedata.db'
 
 def init():
