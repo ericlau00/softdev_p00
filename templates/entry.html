@@ -12,6 +12,7 @@
 <a href = "/blog/{{blogid}}/{{entryid}}/edit_history"> View Entry's Edit History</a><br>
 {% if is_owner %}
 <a href = "/blog/{{blogid}}/{entryid}}/edit"> Edit Entry</a><br>
+<a href = "/blog/{{blogid}}/{{entryid}}/delete"> Delete Entry </a><br>
 {% endif %}
 <br>
 {% for line in entry['content'] %}

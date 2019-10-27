@@ -83,6 +83,7 @@ def get_userid(blogid):
             ''', (blogid,)
             )
     try:
+        #print([data for data in query][0][0])
         return [data for data in query][0][0]
     except IndexError as error:
         return False
