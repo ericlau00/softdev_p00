@@ -5,7 +5,7 @@
 
 from flask import Flask, request, redirect, session, render_template, url_for, flash
 import os
-from utl import acc, blogs, entries
+from utl import acc, blogs, entries, comments
 
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
@@ -213,5 +213,10 @@ def edit_entry(blogid,entryid):
         return redirect(url_for("login"))
 
 if __name__ == "__main__":
-	app.debug = True
-	app.run()
+    blogs.init()
+    acc.init()
+    entries.init()
+    entries.init_arc()
+    comments.init()
+    app.debug = True
+    app.run()
