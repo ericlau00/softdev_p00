@@ -21,10 +21,11 @@
 
 <h3> Comments </h3>
 {% for comment in comments %}
-<b>{{comment['userid']}}: </b>{{comment['timestamp']}}<br>
-{% for line in range(0,(comment['content']|length)//20)%}  
-{{comment['content']}}<br>
+<b><a href="/profile/{{comment['userid']}}">{{comment['username']}}: </a></b>{{comment['timestamp']}}<br>
+{% for line in comment['content']%}
+{{line}}<br>
 {% endfor %}
+{{comment['entry']}}
 {% endfor %}
 
 <form action="/blog/{{blogid}}/{{entryid}}/view" method="post">
