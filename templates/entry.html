@@ -9,10 +9,10 @@
 
 <h2> {{description[1]}} by {{description[3]}}</h2>
 <h3> {{entry['title']}}</h3>
-<a href = "/blog/{{blogid}}/{{entryid}}/edit_history"> View Entry's Edit History </a>
+<a href = "/blog/{{blogid}}/{{entryid}}/edit_history">  [View Entry's Edit History]  </a>
 {% if is_owner %}
-<a href = "/blog/{{blogid}}/{{entryid}}/edit"> Edit Entry </a>
-<a href = "/blog/{{blogid}}/{{entryid}}/delete"> Delete Entry </a>
+<a href = "/blog/{{blogid}}/{{entryid}}/edit">  [Edit Entry]  </a>
+<a href = "/blog/{{blogid}}/{{entryid}}/delete">  [Delete Entry]  </a>
 {% endif %}
 <br>
 {% for line in entry['content'] %}

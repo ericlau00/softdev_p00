@@ -10,7 +10,7 @@
 <h2> {{username}}'s Profile </h2>
 
 {% if is_owner %}
-<h3><a href="/profile/create_blog"> Create a new blog</a></h3>
+<a href="/profile/create_blog"> [Create a new blog] </a>
 {% endif %}
 
 {% for blog in user_blogs %}
