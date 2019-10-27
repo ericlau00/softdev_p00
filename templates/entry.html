@@ -9,10 +9,10 @@
 
 <h2> {{description[1]}} by {{description[3]}}</h2>
 <h3> {{entry['title']}}</h3>
-<a href = "/blog/{{blogid}}/{{entryid}}/edit_history"> View Entry's Edit History</a><br>
+<a href = "/blog/{{blogid}}/{{entryid}}/edit_history"> View Entry's Edit History </a>
 {% if is_owner %}
-<a href = "/blog/{{blogid}}/{{entryid}}/edit"> Edit Entry</a><br>
-<a href = "/blog/{{blogid}}/{{entryid}}/delete"> Delete Entry </a><br>
+<a href = "/blog/{{blogid}}/{{entryid}}/edit"> Edit Entry </a>
+<a href = "/blog/{{blogid}}/{{entryid}}/delete"> Delete Entry </a>
 {% endif %}
 <br>
 {% for line in entry['content'] %}
@@ -21,6 +21,9 @@
 
 <h3> Comments </h3>
 {% for comment in comments %}
+{% if userid == {{comment['userid']}} %}
+  <a href="/blog/{{blogid}}/{{entryid}}/{{comment['commentid']}}/delete">Delete comment</a>
+{% endif %}
 <b><a href="/profile/{{comment['userid']}}">{{comment['username']}}: </a></b>{{comment['timestamp']}}<br>
 {% for line in comment['content']%}
 {{line}}<br>

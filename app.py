@@ -145,26 +145,29 @@ def view_blog(blogid):
 @app.route("/blog/<blogid>/create_entry", methods = ["GET","POST"])
 def create_entry(blogid):
     if 'user' in session:
-        if(request.method == "GET"):
-            return render_template("create_entry.html",
-                                    blogid = blogid,
-                                    userid = session.get('userid')
-                                    )
-        elif(request.method == "POST"):
-            print("YOO")
-            if request.form['entry_title'] == '' or request.form['entry_title'].isspace() or request.form['entry_content'] == '' or request.form['entry_content'].isspace():
-                flash("please input some text")
+        if(session.get('user') == acc.get_username(blogs.get_userid(blogid))):
+            if(request.method == "GET"):
                 return render_template("create_entry.html",
-                                        blogid=blogid,
+                                        blogid = blogid,
                                         userid = session.get('userid')
                                         )
-            else:
-                entries.create_entry(blogid,
-                                    request.form['entry_title'],
-                                    request.form['entry_content']
-                                    )
-                flash("You have successfully created an entry!")
-                return redirect(url_for("view_blog", blogid = blogid))
+            elif(request.method == "POST"):
+                if request.form['entry_title'] == '' or request.form['entry_title'].isspace() or request.form['entry_content'] == '' or request.form['entry_content'].isspace():
+                    flash("please input some text")
+                    return render_template("create_entry.html",
+                                            blogid=blogid,
+                                            userid = session.get('userid')
+                                            )
+                else:
+                    entries.create_entry(blogid,
+                                        request.form['entry_title'],
+                                        request.form['entry_content']
+                                        )
+                    flash("You have successfully created an entry!")
+                    return redirect(url_for("view_blog", blogid = blogid))
+        else:
+            flash("Please do not try to create entries for other people's blogs!")
+            return redirect(url_for("home"))
     else:
         return redirect(url_for("login"))
 
@@ -234,6 +237,19 @@ def delete_entry(blogid,entryid):
             return redirect(url_for("view_blog", blogid = blogid))
         else:
             flash("Please do not try to delete other people's entries!")
+            return redirect(url_for("home"))
+    else:
+        return redirect(url_for("login"))
+
+@app.route("/blog/<blogid>/<entryid>/<commentid>/delete", methods = ["GET","POST"])
+def delete_comment(blogid,entryid,commentid):
+    if 'user' in session:
+        if(session.get('user') == acc.get_username(blogs.get_userid(blogid))):
+            comments.delete_comment(blogid,entry,commentid)
+            flash("Successfully deleted comment")
+            return redirect(url_for("view_entry", blogid = blogid, entryid = entryid))
+        else:
+            flash("Please do not try to delete other people's comments!")
             return redirect(url_for("home"))
     else:
         return redirect(url_for("login"))
