@@ -37,6 +37,17 @@ def create_entry(blogid, title, content):
     db.execute('INSERT INTO entries_arc VALUES (?,?,?,?,?,?)',(blogid, count, 0, time, title, content))
     db.commit()
 
+def read_entry(blogid, entryid):
+    db = sqlite3.connect(__dbfile__)
+    query = db.execute('SELECT title, content FROM entries WHERE blogid=? AND entryid=?', (blogid, entryid))
+    
+    query = [item for item in query][0]
+    entry = {
+        'title': query[0],
+        'content': query[1]
+    }
+    return entry  
+
 def edit_entry(blogid, entryid, title, content):
     db = sqlite3.connect(__dbfile__)
     time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
@@ -46,7 +57,6 @@ def edit_entry(blogid, entryid, title, content):
     db.execute('UPDATE entries SET versionid=?, content=? WHERE blogid=? AND entryid=?;', (current + 1, content,blogid,entryid))
     db.execute('INSERT INTO entries_arc VALUES (?,?,?,?,?,?);', (blogid, entryid, current + 1, time, title, content))
     db.commit()
-
 
 def delete_entry(blogid, entryid):
     db = sqlite3.connect(__dbfile__)
@@ -86,3 +96,6 @@ def read_comments(blogid, entryid):
     for item in comments:
         print(item)
     return comments
+
+# create_entry(0,"this is a test title", "this is test content")
+read_entry(0,1)
