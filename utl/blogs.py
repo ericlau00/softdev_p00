@@ -53,8 +53,8 @@ def read_entries(blogid):
             'timestamp':elist[i][2],
             'content':list(elist[i])[3].split("\n"),
         }
-    print("HELLO")
-    print(elist[0]['content'])
+    # print("HELLO")
+    # print(elist[0]['content'])
     return elist
 
 def get_user_blogs(userid):
