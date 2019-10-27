@@ -51,7 +51,7 @@ def read_entries(blogid):
             'entryid':elist[i][0],
             'versionid':elist[i][1],
             'timestamp':elist[i][2],
-            'content':list(elist[i])[3].split("\n"),
+            'content':list(elist[i])[3].split("\n")[0],
         }
     return elist
 

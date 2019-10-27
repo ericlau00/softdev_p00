@@ -16,9 +16,9 @@
 <h3>
 {{ entry['timestamp'] }}
 </h3>
-<a href = "/blog/{{blog_id}}/entry/{{entry[entryid]}}/edit_history"> View Entry's Edit History</a><br>
+<a href = "/blog/{{blog_id}}/entry/{{entry['entryid']}}/edit_history"> View Entry's Edit History</a><br>
 {% if is_owner %}
-<a href = "/blog/{{blog_id}}/entry/{{entry[entryid]}}/edit_entry", content = entry['content']> Edit Entry</a><br>
+<a href = "/blog/{{blog_id}}/entry/{{entry['entryid']}}/edit?content={{entry['content']}}"> Edit Entry</a><br>
 {% endif %}
 <br>
 {% for line in entry['content'] %}

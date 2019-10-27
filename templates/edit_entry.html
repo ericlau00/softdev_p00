@@ -11,12 +11,10 @@ Create Entry
 {% block body %}
 {{super()}}
 <br>
-<form action="/blog/{{blog_id}}/entry/{{entry_id}}/edit_entry" method="post">
-  <br>Create an Entry <br>
-  <textarea rows = "8" cols = "60" name = "entry_content">
-  {{content}}
-  </textarea><br>
-  <input type = "submit" value = "Create Entry" />
+<form action="/blog/{{blog_id}}/entry/{{entry_id}}/edit" method="post">
+  <br>Edit this Entry <br>
+  <textarea rows = "8" cols = "60" name = "entry_content">{{content}}</textarea><br>
+  <input type = "submit" value = "Submit" />
 </form>
 </center>
 {% endblock%}
