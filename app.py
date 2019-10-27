@@ -165,14 +165,33 @@ def create_entry(blog_id):
         return redirect(url_for("login"))
 
 @app.route("/blog/<blog_id>/entry/<entry_id>/edit_history", methods = ["GET","POST"])
-def view_edit_history():
-     render_template("entry_history.html",
-     entries = read_entries_h(blogid, entryid),
-     userid = session.get('userid')
-     )
-# @app.route("/blog/<blog_id>/entry/edit", methods = ["GET","POST"])
-# def yolo():
-#     return 0
+def view_edit_history(blog_id,entry_id):
+    if 'user' in session:
+        render_template("entry_history.html",
+        entries = read_entries_h(blogid, entryid),
+        userid = session.get('userid')
+        )
+    else:
+        return redirect(url_for("login"))
+
+app.route("/blog/<blog_id>/entry/<entry_id>/edit_entry", methods = ["GET","POST"])
+def edit_entry(blog_id,entry_id,content):
+    if 'user' in session:
+        if(session.get['user'] == acc.get_username(blogs.get_userid(blog_id))):
+            if(request.method == "GET"):
+                render_template("edit_entry.html",
+                entries = read_entries_h(blogid, entryid),
+                userid = session.get('userid'),
+                content = content;
+                blog_id = blog_id,
+                entry_id = entry_id
+                )
+            elif(request.method == "POST"):
+        else:
+            flash("Please do not try to edit other people's entries!")
+            return redirect(url_for("home"))
+    else:
+        return redirect(url_for("login"))
 
 if __name__ == "__main__":
 	app.debug = True
