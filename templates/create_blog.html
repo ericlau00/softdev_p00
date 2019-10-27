@@ -1,0 +1,18 @@
+{% extends "home.html" %}
+
+{% block title %}
+Create Blog
+{% endblock %}
+
+{% block header %}
+<h1> Create Blog </h1>
+{% endblock %}
+
+{% block body %}
+{{ super() }}
+<br>
+<form action="/profile/create_blog" method="post">
+  Blog Title: <input type="text" name="blog_title" placeholder = "My First Marriage"><br>
+  <input type="submit" value="Create blog"><br>
+</form>
+{% endblock%}
