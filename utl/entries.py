@@ -58,5 +58,22 @@ def read_entries_h(blogid, entryid):
             'timestamp':hist[i][1],
             'content':hist[i][2], 
         }
-    for item in hist:
+        print(hist[i])
+    return hist
+
+def read_comments(blogid, entryid):
+    db = sqlite3.connect(__dbfile__)
+    query = db.execute('''
+            SELECT comments.userid, comments.timestamp, comments.content 
+            FROM comments WHERE comments.blogid=? AND comments.entryid=? 
+            ORDER BY commentid DESC''',(blogid, entryid))
+    comments = [item for item in query]
+    for i in range(len(comments)):
+        comments[i] = {
+            'userid':comments[i][0],
+            'timestamp':comments[i][1],
+            'content':comments[i][2],
+        }
+    for item in comments:
         print(item)
+    return comments

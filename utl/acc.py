@@ -30,8 +30,8 @@ def verify_acc(un, pw):
 
 def create_acc(un, pw):
     hpw = __hash(pw)
+    db = sqlite3.connect(__dbfile__)
     try:
-        db = sqlite3.connect(__dbfile__)
         db.execute('INSERT INTO users VALUES (?,?,?);', (__count(), un, hpw)) # next index for userid
         db.commit()
         return True
@@ -67,6 +67,7 @@ def get_username(userid):
     except sqlite3.Error as error:
         print(error)
         return False
+
 
 def __hash(txt):
     hpw = md5()

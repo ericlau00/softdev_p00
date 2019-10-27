@@ -14,7 +14,7 @@ def init():
 
 def create_blog(userid, title):
     db = sqlite3.connect(__dbfile__)
-    try:
+    try:    
         db.execute('INSERT INTO blogs VALUES (?,?,?);', (userid, count(), title))
         db.commit()
         return True
