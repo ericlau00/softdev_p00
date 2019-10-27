@@ -15,7 +15,7 @@
 {% for entry in entries %}
 <h4>
 <a href = "/blog/{{blogid}}/{{entry['entryid']}}/view"> {{ entry ['title']}}: {{ entry['timestamp'] }}</a><br>
-</h4>
-{{entry['content'][0]}}...
+</h3>
+{{entry['content'][0][0:30]}}...
 {% endfor %}
 {% endblock %}

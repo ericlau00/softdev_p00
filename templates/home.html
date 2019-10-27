@@ -9,25 +9,12 @@ Home
 
 {% block body %}
 {% block nav %}
-<center>
-    <table>
-        <td>
-            <h3><a href="/home">Home</a></h3>
-        </td>
-        <td>
-            <h3><a href="/search">Search</a></h3>
-        </td>
-        <td>
-            <h3><a href="/profile/{{userid}}">Profile</a></h3>
-        </td>
-        <td>
-            <h3><a href="/settings">Settings</a></h3>
-        </td>
-        <td>
-            <h3><a href="/logout">Logout</a></h3>
-        </td>
-    </table>
-</center>
+<table>
+    <td><h3><a href="/home">Home</a></h3></td>
+    <td><h3><a href="/profile/{{userid}}">Profile</a></h3></td>
+    <td><form action='/search' method='POST'><input type="text" name="search_query" placeholder = "Search"><input type="submit" value="Search"></form></td>
+    <td><h3><a href="/logout">Logout</a></h3></td>
+</table>
 {% endblock %}
 {% for blog in blogs %}
 <h3><a href="/blog/{{blog[0]}}"> {{blog[1]}} </a> by <a href="/profile/{{blog[2]}}"> {{blog[3]}}</a></h3>

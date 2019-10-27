@@ -11,6 +11,7 @@
 <body>
   <center>
     <h1>Tumblr: the SeQueL</h1>
+
     {% block header %}
     {% endblock %}
 
@@ -21,6 +22,15 @@
     {% endfor %}
     {% endif %}
     {% endwith %}
+    <br>
+
+    {% block body %}
+    {% endblock %}
+
+    {% block footer %}
+        <br><br>
+        &copy; Copyright Joseph Lee, Yevgeniy Gorbachev, Eric Lau 2019
+    {% endblock %}
   </center>
 
 
@@ -28,12 +38,5 @@
   {% endblock %}
 
 </body>
-
-<footer>
-  <hr>
-  {% block footer %}
-  &copy Team SeQueL: Joseph Lee, Yevgeniy Gorbachev, Eric Lau
-  {% endblock %}
-</footer>
 
 </html>

@@ -9,7 +9,7 @@
 
 {% for entry in entries %}
 <h2>{{ entry['title'] }}</h2>
-<h3>{{ entry['timestamp'] }} </h3><br>
+<h4>{{ entry['timestamp'] }} </h4>
 {% for line in entry['content'] %}
 {{ line }} <br>
 {% endfor %} <br>

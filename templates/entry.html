@@ -9,13 +9,31 @@
 
 <h2> {{description[1]}} by {{description[3]}}</h2>
 <h3> {{entry['title']}}</h3>
-<a href = "/blog/{{blogid}}/{{entryid}}/edit_history"> View Entry's Edit History</a><br>
+<a href = "/blog/{{blogid}}/{{entryid}}/edit_history"> View Entry's Edit History </a>
 {% if is_owner %}
-<a href = "/blog/{{blogid}}/{{entryid}}/edit"> Edit Entry</a><br>
-<a href = "/blog/{{blogid}}/{{entryid}}/delete"> Delete Entry </a><br>
+<a href = "/blog/{{blogid}}/{{entryid}}/edit"> Edit Entry </a>
+<a href = "/blog/{{blogid}}/{{entryid}}/delete"> Delete Entry </a>
 {% endif %}
 <br>
 {% for line in entry['content'] %}
 {{ line }} <br>
 {% endfor %} <br>
+
+<h3> Comments </h3>
+{% for comment in comments %}
+<b><a href="/profile/{{comment['userid']}}">{{comment['username']}}: </a></b>{{comment['timestamp']}}
+{% if userid == comment['userid'] %}
+  <a href="/blog/{{blogid}}/{{entryid}}/{{comment['commentid']}}/{{comment['userid']}}/delete">Delete comment</a><br>
+{% endif %}
+{% for line in comment['content']%}
+{{line}}<br>
+{% endfor %}
+{% endfor %}
+
+<form action="/blog/{{blogid}}/{{entryid}}/view" method="post">
+  <br>Create a Comment <br>
+  <textarea rows = "5" cols = "60" name = "comment_content" placeholder="Enter comment here..."></textarea><br>
+  <input type = "submit" value = "Create Comment" />
+</form>
+
 {% endblock %}

@@ -1,6 +1,7 @@
 import sqlite3
 import os
 import datetime
+from utl import acc
 
 __dbfile__ = os.path.dirname(os.path.abspath(__file__)) + '/../data/sitedata.db'
 
@@ -83,15 +84,17 @@ def read_entries_h(blogid, entryid):
 def read_comments(blogid, entryid):
     db = sqlite3.connect(__dbfile__)
     query = db.execute('''
-            SELECT comments.userid, comments.timestamp, comments.content
+            SELECT comments.userid, comments.timestamp, comments.content, comments.commentid
             FROM comments WHERE comments.blogid=? AND comments.entryid=?
             ORDER BY commentid DESC''',(blogid, entryid))
     comments = [item for item in query]
     for i in range(len(comments)):
         comments[i] = {
             'userid':comments[i][0],
+            'username':acc.get_username(comments[i][0]),
             'timestamp':comments[i][1],
-            'content':comments[i][2],
+            'content':comments[i][2].split("\n"),
+            'commentid':comments[i][3]
         }
     for item in comments:
         print(item)
