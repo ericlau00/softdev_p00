@@ -8,8 +8,9 @@ def search(keyword):
     query = db.execute('''
                         SELECT blogs.blogid, blogs.title, users.userid, users.username 
                         FROM blogs INNER JOIN users ON blogs.userid = users.userid
-                        WHERE blogs.title LIKE ?;''',(keyword,))
+                        WHERE blogs.title LIKE ?;''',(f'%{keyword}%',))
     results = [item for item in query]
+    print(results)
     for i in range(len(results)):
         results[i] = {
             'blogid':results[i][0],
@@ -17,5 +18,4 @@ def search(keyword):
             'userid':results[i][2],
             'username':results[i][3],
         }
-        print(results[i])
     return results
