@@ -15,9 +15,7 @@
 <br>
 {% endif %}
 
-{% if user_blogs != False %}
 {% for blog in user_blogs %}
 <a href="/blog/{{blog[0]}}"> {{blog[1]}}</a><br>
 {% endfor %}
-{% endif %}
 {% endblock %}

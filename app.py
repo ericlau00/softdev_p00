@@ -24,6 +24,7 @@ def home():
         info = []
         for i in range(count):
             info.append(blogs.describe(i))
+        print(info)
         return render_template(
             "home.html",
             blogs = info,
@@ -69,7 +70,7 @@ def register():
 
 @app.route("/logout", methods = ["GET","POST"])
 def logout():
-        # remove the username from the session if it's there
+        # remove the username and userid from the session if it's there
         session.pop('userid', None)
         session.pop('user', None)
         flash('You were successfully logged out!')
@@ -132,7 +133,6 @@ def create_blog():
 @app.route("/blog/<blogid>", methods = ["GET","POST"])
 def view_blog(blogid):
     if 'user' in session:
-        #print(blogs.read_entries(blogid)[0]['content'])
         return render_template("blog.html",
             blogid = blogid,
             description = blogs.describe(blogid),
