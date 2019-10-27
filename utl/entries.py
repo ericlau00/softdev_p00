@@ -60,9 +60,8 @@ def edit_entry(blogid, entryid, title, content):
 
 def delete_entry(blogid, entryid):
     db = sqlite3.connect(__dbfile__)
-    db.execute('''
-        DELETE FROM entries, entries_arc WHERE blogid=? AND entryid=?''',
-        (blogid, entryid))
+    db.execute('DELETE FROM entries WHERE blogid=? AND entryid=?;', (blogid, entryid))
+    db.execute('DELETE FROM entries_arc WHERE blogid=? AND entryid=?;', (blogid, entryid))
     db.commit()
 
 def read_entries_h(blogid, entryid):
