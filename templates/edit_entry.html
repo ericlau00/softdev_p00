@@ -13,8 +13,9 @@ Create Entry
 <br>
 <form action="/blog/{{blog_id}}/entry/{{entry_id}}/edit" method="post">
   <br>Edit this Entry <br>
-  <textarea rows = "8" cols = "60" name = "entry_content">{{content}}</textarea><br>
+  <textarea rows = "8" cols = "60" name = "entry_content">{{entry['content']}}</textarea><br>
   <input type = "submit" value = "Submit" />
 </form>
 </center>
+
 {% endblock%}

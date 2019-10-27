@@ -175,8 +175,11 @@ def create_entry(blogid):
 def view_entry(blogid,entryid):
     if 'user' in session:
         return render_template("entry.html",
+                        blogid = blogid,
+                        entryid = entryid,
                         description = blogs.describe(blogid),
-                        entry = entries.read_content(blogid, entryid),
+                        entry = entries.read_entry(blogid, entryid),
+                        is_owner = session.get('user') == acc.get_username(blogs.get_userid(blogid)),
                         userid = session.get('userid')
                         )
     else:
@@ -196,19 +199,16 @@ def edit_entry(blogid,entryid):
     if 'user' in session:
         if(session.get('user') == acc.get_username(blogs.get_userid(blogid))):
             if(request.method == "GET"):
-                content = ""
-                for line in request.args.get('content'):
-                    content += line
                 return render_template("edit_entry.html",
                                 userid = session.get('userid'),
-                                content = content[2:-2],
+                                entry = entries.read_entry(blogid,entryid),
                                 blogid = blogid,
                                 entryid = entryid
                                 )
             elif(request.method == "POST"):
                 entries.edit_entry(blogid, entryid, request.form['entry_content'])
                 flash("Successfully edited entry")
-                return redirect(url_for("view_blog", blogid = blogid))
+                return redirect(url_for("view_entry", blogid = blogid, entryid = entryid))
         else:
             flash("Please do not try to edit other people's entries!")
             return redirect(url_for("home"))

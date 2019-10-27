@@ -44,7 +44,7 @@ def read_entry(blogid, entryid):
     query = [item for item in query][0]
     entry = {
         'title': query[0],
-        'content': query[1]
+        'content': query[1].split("\n")
     }
     return entry
 
@@ -75,7 +75,7 @@ def read_entries_h(blogid, entryid):
             'versionid':hist[i][0],
             'timestamp':hist[i][1],
             'title':hist[i][1],
-            'content':hist[i][3].split("\n"), 
+            'content':hist[i][3].split("\n"),
         }
         print(hist[i])
     return hist
