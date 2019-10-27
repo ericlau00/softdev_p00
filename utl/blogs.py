@@ -22,6 +22,9 @@ def create_blog(userid, title):
         print(error)
         return False
 
+def delete_blog(blogid):
+    db = sqlite3.connect(__dbfile__)
+
 def describe(blogid):
     db = sqlite3.connect(__dbfile__)
     query = db.execute(

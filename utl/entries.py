@@ -41,8 +41,14 @@ def edit_entry(blogid, entryid, content):
     query = db.execute('SELECT versionid FROM entries WHERE blogid=? AND entryid=?;',(blogid, entryid))
     current = [item for item in query][0][0]
 
-    db.execute('UPDATE entries SET versionid=?, content=?;', (current + 1, content))
+    db.execute('UPDATE entries SET versionid=?, content=? WHERE blogid=? AND entryid=?;', (current + 1, content))
     db.execute('INSERT INTO entries_arc VALUES (?,?,?,?,?);', (blogid, entryid, current + 1, time, content))
+    db.commit()
+
+
+def delete_entry(blogid, entryid):
+    db = sqlite3.connect(__dbfile__)
+    db.execute('DELETE FROM entries, entries_arc WHERE blogid=? AND entryid=?;',(blogid, entryid))
     db.commit()
 
 def read_entries_h(blogid, entryid):
