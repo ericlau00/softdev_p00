@@ -18,4 +18,19 @@
 {% for line in entry['content'] %}
 {{ line }} <br>
 {% endfor %} <br>
+
+<h3> Comments </h3>
+{% for comment in comments %}
+<b>{{comment['userid']}}: </b>{{comment['timestamp']}}<br>
+{% for line in range(0,(comment['content']|length)//20)%}  
+{{comment['content']}}<br>
+{% endfor %}
+{% endfor %}
+
+<form action="/blog/{{blogid}}/{{entryid}}/view" method="post">
+  <br>Create a Comment <br>
+  <textarea rows = "5" cols = "60" name = "comment_content" placeholder="Enter comment here..."></textarea><br>
+  <input type = "submit" value = "Create Comment" />
+</form>
+
 {% endblock %}

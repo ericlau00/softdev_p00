@@ -16,6 +16,6 @@
 <h3>
 <a href = "/blog/{{blogid}}/{{entry['entryid']}}/view"> {{ entry ['title']}}: {{ entry['timestamp'] }}</a><br>
 </h3>
-{{entry['content'][0]}}...
+{{entry['content'][0][0:30]}}...
 {% endfor %}
 {% endblock %}

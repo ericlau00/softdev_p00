@@ -171,17 +171,26 @@ def create_entry(blogid):
 @app.route("/blog/<blogid>/<entryid>/view", methods = ["GET","POST"])
 def view_entry(blogid,entryid):
     if 'user' in session:
-        return render_template("entry.html",
-                        blogid = blogid,
-                        entryid = entryid,
-                        description = blogs.describe(blogid),
-                        entry = entries.read_entry(blogid, entryid),
-                        is_owner = session.get('user') == acc.get_username(blogs.get_userid(blogid)),
-                        userid = session.get('userid')
-                        )
+        if(request.method == "GET"):
+            return render_template("entry.html",
+                                    blogid = blogid,
+                                    entryid = entryid,
+                                    description = blogs.describe(blogid),
+                                    entry = entries.read_entry(blogid, entryid),
+                                    is_owner = session.get('user') == acc.get_username(blogs.get_userid(blogid)),
+                                    userid = session.get('userid'),
+                                    comments = entries.read_comments(blogid,entryid)
+                                    )
+        elif(request.method == "POST"):
+            comments.create_comment(blogid,
+                                    entryid,
+                                    session.get('userid'),
+                                    request.form['comment_content'])
+            flash("successfully commented")
+            return redirect(url_for("view_entry", blogid = blogid, entryid = entryid))
     else:
         return redirect(url_for("login"))
-        
+
 @app.route("/blog/<blogid>/<entryid>/edit_history", methods = ["GET","POST"])
 def view_edit_history(blogid,entryid):
     if 'user' in session:
