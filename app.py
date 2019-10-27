@@ -184,9 +184,12 @@ def edit_entry(blog_id,entry_id):
     if 'user' in session:
         if(session.get('user') == acc.get_username(blogs.get_userid(blog_id))):
             if(request.method == "GET"):
+                content = ""
+                for line in request.args.get('content'):
+                    content += line
                 return render_template("edit_entry.html",
                                 userid = session.get('userid'),
-                                content = request.args.get('content'),
+                                content = content[2:-2],
                                 blog_id = blog_id,
                                 entry_id = entry_id
                                 )

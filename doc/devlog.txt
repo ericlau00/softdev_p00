@@ -176,14 +176,26 @@ leeJo -- 2019-10-26 15:19
 leeJo -- 2019-10-26 15:58
   fixed bugs
 
+leeJo -- 2019-10-26 14:32
+  implemented add blog feature
+  checked for whitespace in creating blog title
+
 lauE -- 2019-10-26 17:58
-    can create entries 
+    can create entries
         create template for entry creation
-        change read entries function to reflect new lines in entry input 
+        change read entries function to reflect new lines in entry input
         create route to create entry
 
 lauE -- 2019-10-26 18:55
     changed routing
         pass userid to all routes so navbar fully works
-        create frontend settings and search routes 
+        create frontend settings and search routes
         add nav bar to all routes
+
+leeJo -- 2019-10-26 19:33
+    implemented front end for viewing entry's edit History
+    edited the app route and html for edit History
+
+leeJo -- 2019-10-26 22:14
+    successfully debugged an html bug
+    fully implemented editing entry feature 
