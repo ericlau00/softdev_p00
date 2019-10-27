@@ -13,6 +13,6 @@ Search
 {{super()}}
 {% endblock %}
 {% for blog in blogs %}
-    <a href="/blog/{{blog['blogid']}}"> {{blog['title']}} </a> by <a href="/profile/{{blog['userid']}}"> {{blog['username']}}</a><br>
+    <h3><a href="/blog/{{blog['blogid']}}"> {{blog['title']}} </a> by <a href="/profile/{{blog['userid']}}"> {{blog['username']}}</a></h3>
 {% endfor %}
 {% endblock %}

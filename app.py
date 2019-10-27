@@ -24,7 +24,6 @@ def home():
         info = []
         for i in range(count):
             info.append(blogs.describe(i))
-        print(info)
         return render_template(
             'home.html',
             blogs = info,
@@ -44,6 +43,7 @@ def login():
                 )
     elif(request.method == "POST"):
         session['userid'] = acc.get_userid(request.form['username'])
+        print(session.get('userid'))
         if (acc.verify_acc(request.form['username'],request.form['password'])):
             session['user'] = request.form['username']
             flash('You have successfully logged in!')

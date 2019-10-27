@@ -23,14 +23,6 @@
     {% endif %}
     {% endwith %}
     <br>
-
-    {% block body %}
-    {% endblock %}
-
-    {% block footer %}
-        <br><br>
-        &copy; Copyright Joseph Lee, Yevgeniy Gorbachev, Eric Lau 2019
-    {% endblock %}
   </center>
 
 
@@ -38,5 +30,12 @@
   {% endblock %}
 
 </body>
+
+<footer>
+  {% block footer %}
+  <br><br>
+  &copy; Copyright Joseph Lee, Yevgeniy Gorbachev, Eric Lau 2019
+  {% endblock %}
+</footer>
 
 </html>
