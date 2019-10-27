@@ -27,3 +27,4 @@ def create_comment(blogid, entryid, userid, content):
 def delete_comment(blogid, entryid, commentid):
     db = sqlite3.connect(__dbfile__)
     db.execute('DELETE FROM comments WHERE blogid=? AND entryid=? AND commentid=?;',(blogid, entryid, commentid))
+    db.commit()
