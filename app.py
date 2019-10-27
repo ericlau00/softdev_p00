@@ -104,7 +104,7 @@ def search():
 @app.route("/profile/<userid>", methods=["GET"])
 def profile(userid):
     username = acc.get_username(userid)
-    if 'user' in session:     
+    if 'user' in session:
         return render_template("profile.html",
                                 title = username,
                                 username = username,
@@ -163,13 +163,13 @@ def create_entry(blog_id):
             return redirect(url_for("view_blog", blog_id = blog_id))
     else:
         return redirect(url_for("login"))
-        
-# @app.route("/blog/<blog_id>/entry/<entry_id>", methods = ["GET","POST"])
-# def view_entry():
-#     render_template("entry.html",
-#     content = get_entry_content(entry_id),
-#     is_owner = is_owner(blog_id,session['user']))
 
+@app.route("/blog/<blog_id>/entry/<entry_id>/edit_history", methods = ["GET","POST"])
+def view_edit_history():
+     render_template("entry_history.html",
+     entries = read_entries_h(blogid, entryid),
+     userid = session.get('userid')
+     )
 # @app.route("/blog/<blog_id>/entry/edit", methods = ["GET","POST"])
 # def yolo():
 #     return 0

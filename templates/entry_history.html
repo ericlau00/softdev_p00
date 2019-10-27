@@ -1,0 +1,16 @@
+{% extends "home.html" %}
+
+{% block title %}
+{{title}}
+{% endblock %}
+
+{% block body %}
+{{ super() }}
+
+{% for entry in entries %}
+<h2>{{ entry['timestamp'] }} </h2><br>
+{% for line in entry['content'] %}
+{{ line }} <br>
+{% endfor %} <br>
+{% endfor %}
+{% endblock %}

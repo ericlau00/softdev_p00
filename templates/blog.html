@@ -12,7 +12,8 @@
 {% endif %}
 <h2> {{description[1]}} by {{description[3]}}</h2>
 {% for entry in entries %}
-{{ entry['timestamp'] }} <br>
+{{ entry['timestamp'] }}
+<a href = "/blog/{{blog_id}}/entry/{{entry[entryid]}}/edit_history"> View Entry's Edit History</a><br>
 {% for line in entry['content'] %}
 {{ line }} <br>
 {% endfor %} <br>
