@@ -241,11 +241,11 @@ def delete_entry(blogid,entryid):
     else:
         return redirect(url_for("login"))
 
-@app.route("/blog/<blogid>/<entryid>/<commentid>/delete", methods = ["GET","POST"])
-def delete_comment(blogid,entryid,commentid):
+@app.route("/blog/<blogid>/<entryid>/<commentid>/<userid>/delete", methods = ["GET","POST"])
+def delete_comment(blogid,entryid,commentid,userid):
     if 'user' in session:
-        if(session.get('user') == acc.get_username(blogs.get_userid(blogid))):
-            comments.delete_comment(blogid,entry,commentid)
+        if(session.get('user') == acc.get_username(userid)):
+            comments.delete_comment(blogid,entryid,commentid)
             flash("Successfully deleted comment")
             return redirect(url_for("view_entry", blogid = blogid, entryid = entryid))
         else:

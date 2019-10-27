@@ -21,14 +21,13 @@
 
 <h3> Comments </h3>
 {% for comment in comments %}
-{% if userid == {{comment['userid']}} %}
-  <a href="/blog/{{blogid}}/{{entryid}}/{{comment['commentid']}}/delete">Delete comment</a>
+<b><a href="/profile/{{comment['userid']}}">{{comment['username']}}: </a></b>{{comment['timestamp']}}
+{% if userid == comment['userid'] %}
+  <a href="/blog/{{blogid}}/{{entryid}}/{{comment['commentid']}}/{{comment['userid']}}/delete">Delete comment</a><br>
 {% endif %}
-<b><a href="/profile/{{comment['userid']}}">{{comment['username']}}: </a></b>{{comment['timestamp']}}<br>
 {% for line in comment['content']%}
 {{line}}<br>
 {% endfor %}
-{{comment['entry']}}
 {% endfor %}
 
 <form action="/blog/{{blogid}}/{{entryid}}/view" method="post">
