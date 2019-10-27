@@ -256,7 +256,11 @@ def delete_entry(blogid,entryid):
 @app.route('/blog/<blogid>/<entryid>/<commentid>/<userid>/delete', methods = ['GET','POST'])
 def delete_comment(blogid,entryid,commentid,userid):
     if 'user' in session:
+<<<<<<< HEAD
         if str(session.get('userid')) == userid:
+=======
+        if(int(session.get('userid')) == int(userid)):
+>>>>>>> 8456399687d1c44f895dd7a75988913ec5936eb0
             comments.delete_comment(blogid,entryid,commentid)
             flash('Successfully deleted comment')
             return redirect(url_for('view_entry', blogid = blogid, entryid = entryid))
