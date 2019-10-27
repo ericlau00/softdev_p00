@@ -42,8 +42,8 @@ def login():
                 "login.html",
                 )
     elif(request.method == "POST"):
-        session['userid'] = acc.verify_acc(request.form['username'],request.form['password'])
-        if session.get('userid') != False:
+        session['userid'] = acc.get_userid(request.form['username'])
+        if (acc.verify_acc(request.form['username'],request.form['password'])):
             session['user'] = request.form['username']
             flash("You have successfully logged in!")
             return redirect(url_for("home"))
@@ -70,6 +70,7 @@ def register():
 @app.route("/logout", methods = ["GET","POST"])
 def logout():
         # remove the username from the session if it's there
+        session.pop('userid', None)
         session.pop('user', None)
         flash('You were successfully logged out!')
         return redirect(url_for('login'))

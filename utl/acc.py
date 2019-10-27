@@ -18,15 +18,23 @@ def verify_acc(un, pw):
     hpw = __hash(pw)
     try:
         db = sqlite3.connect(__dbfile__)
-        userinfo = db.execute('SELECT * FROM users WHERE username=?', (un,)) # find userinfo
+        userinfo = db.execute('SELECT password FROM users WHERE username=?', (un,)) # find userinfo
         userinfo = [item for item in userinfo][0] # take first entry (should be at most one anyway)
-        if userinfo[2] == hpw:
-            return userinfo[0] # if credentials are good, return the userid
+        if userinfo[0] == hpw:
+            return True # if credentials are good, return the userid
         else:
             return False
     except IndexError as error: # no such username, probably
         print(error)
         return False
+
+def get_userid(un):
+    try:
+        db = sqlite3.connect(__dbfile__)
+        userinfo = db.execute('SELECT userid FROM users WHERE username=?', (un,))
+        return [item for item in userinfo][0][0]
+    except IndexError as error:
+        print(error)
 
 def create_acc(un, pw):
     hpw = __hash(pw)

@@ -204,7 +204,7 @@ gorbachevY -- 2019-10-26 23:45
     create delete function for a entry
     fix entry editing 
 
-gorbachev& -- 2019-10-26 00:30
+gorbachevY -- 2019-10-26 00:30
     implemented comments
     implemented deletion of comments, blogs, and entries
 
@@ -214,3 +214,7 @@ lauE -- 2019-10-27 00:47
 
 lauE -- 2019-10-27 03:15
     fixed editing entries with titles and correct new lines 
+
+lauE -- 2019-10-27 14:32
+    fix bug with login for accounts with userid == 0 or userid == 1 
+    0 and 1 in python represent boolean values 
