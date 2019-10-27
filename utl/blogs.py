@@ -47,7 +47,7 @@ def describe(blogid):
 def read_entries(blogid):
     db = sqlite3.connect(__dbfile__)
     query = db.execute('''
-                    SELECT entryid, versionid, timestamp, content FROM entries
+                    SELECT entryid, timestamp, title, content FROM entries
                     WHERE blogid=?
                     ORDER BY entryid DESC
                     ''', (blogid,))
@@ -55,9 +55,15 @@ def read_entries(blogid):
     for i in range(len(elist)):
         elist[i] = {
             'entryid':elist[i][0],
+<<<<<<< HEAD
             'versionid':elist[i][1],
             'timestamp':elist[i][2],
             'content':list(elist[i])[3].split("\n")[0],
+=======
+            'timestamp':elist[i][1],
+            'title':elist[i][2],
+            'content':list(elist[i])[3].split("\n"),
+>>>>>>> b367d519abd70013a2862453d0c3b7053d1290bb
         }
     return elist
 
@@ -86,6 +92,7 @@ def get_userid(blogid):
             ''', (blogid,)
             )
     try:
+        #print([data for data in query][0][0])
         return [data for data in query][0][0]
     except IndexError as error:
         return False

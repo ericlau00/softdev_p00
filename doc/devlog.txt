@@ -199,3 +199,14 @@ leeJo -- 2019-10-26 19:33
 leeJo -- 2019-10-26 22:14
     successfully debugged an html bug
     fully implemented editing entry feature 
+
+gorbachevY -- 2019-10-26 23:45
+    create delete function for a entry
+    fix entry editing 
+
+lauE -- 2019-10-27 00:47
+    create view entry function 
+    reinitialize entries table
+
+lauE -- 2019-10-27 03:15
+    fixed editing entries with titles and correct new lines 

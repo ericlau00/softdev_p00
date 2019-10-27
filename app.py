@@ -5,13 +5,10 @@
 
 from flask import Flask, request, redirect, session, render_template, url_for, flash
 import os
-from utl import acc, blogs, entries
+from utl import acc, blogs, entries, comments
 
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
-
-username = "user"
-password = "password"
 
 @app.route("/", methods=["GET"])
 def root():
@@ -115,20 +112,6 @@ def profile(userid):
     else:
         return redirect(url_for("login"))
 
-@app.route("/blog/<blog_id>", methods = ["GET","POST"])
-def view_blog(blog_id):
-    if 'user' in session:
-        #print(blogs.read_entries(blog_id)[0]['content'])
-        return render_template("blog.html",
-            blog_id = blog_id,
-            description = blogs.describe(blog_id),
-            entries = blogs.read_entries(blog_id),
-            is_owner = (session.get('userid') == blogs.get_userid(blog_id)),
-            userid = session.get('userid')
-            )
-    else:
-        return redirect(url_for("login"))
-
 @app.route("/profile/create_blog", methods =["GET","POST"])
 def create_blog():
     if 'user' in session:
@@ -145,64 +128,112 @@ def create_blog():
     else:
         return redirect(url_for("login"))
 
-@app.route("/blog/<blog_id>/create_entry", methods = ["GET","POST"])
-def create_entry(blog_id):
+@app.route("/blog/<blogid>", methods = ["GET","POST"])
+def view_blog(blogid):
     if 'user' in session:
-        if(request.method == "GET"):
-            return render_template("create_entry.html",
-                                    blog_id= blog_id,
-                                    userid = session.get('userid')
-                                    )
-        elif(request.method == "POST"):
-            if request.form['entry_content'] == '' or request.form['entry_content'].isspace():
-                flash("please input some text")
-                return render_template("create_entry.html",
-                                        blog_id=blog_id,
-                                        userid = session.get('userid'))
-            entries.create_entry(blog_id, request.form['entry_content'])
-            flash("You have successfully created an entry!")
-            return redirect(url_for("view_blog", blog_id = blog_id))
+        #print(blogs.read_entries(blogid)[0]['content'])
+        return render_template("blog.html",
+            blogid = blogid,
+            description = blogs.describe(blogid),
+            entries = blogs.read_entries(blogid),
+            is_owner = (session.get('userid') == blogs.get_userid(blogid)),
+            userid = session.get('userid')
+            )
     else:
         return redirect(url_for("login"))
 
-@app.route("/blog/<blog_id>/entry/<entry_id>/edit_history", methods = ["GET","POST"])
-def view_edit_history(blog_id,entry_id):
+@app.route("/blog/<blogid>/create_entry", methods = ["GET","POST"])
+def create_entry(blogid):
     if 'user' in session:
-        print(entries.read_entries_h(blog_id, entry_id))
-        render_template("edit_history.html",
-                        entries = entries.read_entries_h(blog_id, entry_id),
+        if(request.method == "GET"):
+            return render_template("create_entry.html",
+                                    blogid = blogid,
+                                    userid = session.get('userid')
+                                    )
+        elif(request.method == "POST"):
+            print("YOO")
+            if request.form['entry_title'] == '' or request.form['entry_title'].isspace() or request.form['entry_content'] == '' or request.form['entry_content'].isspace():
+                flash("please input some text")
+                return render_template("create_entry.html",
+                                        blogid=blogid,
+                                        userid = session.get('userid')
+                                        )
+            else:
+                entries.create_entry(blogid,
+                                    request.form['entry_title'],
+                                    request.form['entry_content']
+                                    )
+                flash("You have successfully created an entry!")
+                return redirect(url_for("view_blog", blogid = blogid))
+    else:
+        return redirect(url_for("login"))
+
+@app.route("/blog/<blogid>/<entryid>/view", methods = ["GET","POST"])
+def view_entry(blogid,entryid):
+    if 'user' in session:
+        return render_template("entry.html",
+                        blogid = blogid,
+                        entryid = entryid,
+                        description = blogs.describe(blogid),
+                        entry = entries.read_entry(blogid, entryid),
+                        is_owner = session.get('user') == acc.get_username(blogs.get_userid(blogid)),
+                        userid = session.get('userid')
+                        )
+    else:
+        return redirect(url_for("login"))
+        
+@app.route("/blog/<blogid>/<entryid>/edit_history", methods = ["GET","POST"])
+def view_edit_history(blogid,entryid):
+    if 'user' in session:
+        return render_template("edit_history.html",
+                        entries = entries.read_entries_h(blogid, entryid),
                         userid = session.get('userid')
                         )
     else:
         return redirect(url_for("login"))
 
-@app.route("/blog/<blog_id>/entry/<entry_id>/edit", methods = ["GET","POST"])
-def edit_entry(blog_id,entry_id):
-    print("YOOOO")
-    print (request.args)
-    print(request.args.get('content'))
+@app.route("/blog/<blogid>/<entryid>/edit", methods = ["GET","POST"])
+def edit_entry(blogid,entryid):
     if 'user' in session:
-        if(session.get('user') == acc.get_username(blogs.get_userid(blog_id))):
+        entry = entries.read_entry(blogid, entryid)
+        for line in range(len(entry['content'])):
+            entry['content'][line] = entry['content'][line].replace("\r","")
+        if(session.get('user') == acc.get_username(blogs.get_userid(blogid))):
             if(request.method == "GET"):
-                content = ""
-                for line in request.args.get('content'):
-                    content += line
                 return render_template("edit_entry.html",
                                 userid = session.get('userid'),
-                                content = content[2:-2],
-                                blog_id = blog_id,
-                                entry_id = entry_id
+                                entry = entry,
+                                blogid = blogid,
+                                entryid = entryid
                                 )
             elif(request.method == "POST"):
-                entries.edit_entry(blog_id, entry_id, request.form['entry_content'])
+                entries.edit_entry(blogid, entryid, request.form['title'], request.form['entry_content'])
                 flash("Successfully edited entry")
-                return redirect(url_for("view_blog", blog_id = blog_id))
+                return redirect(url_for("view_entry", blogid = blogid, entryid = entryid))
         else:
             flash("Please do not try to edit other people's entries!")
             return redirect(url_for("home"))
     else:
         return redirect(url_for("login"))
 
+@app.route("/blog/<blogid>/<entryid>/delete", methods = ["GET","POST"])
+def delete_entry(blogid,entryid):
+    if 'user' in session:
+        if(session.get('user') == acc.get_username(blogs.get_userid(blogid))):
+            entries.delete_entry(blogid, entryid)
+            flash("Successfully deleted entry")
+            return redirect(url_for("view_blog", blogid = blogid))
+        else:
+            flash("Please do not try to delete other people's entries!")
+            return redirect(url_for("home"))
+    else:
+        return redirect(url_for("login"))
+
 if __name__ == "__main__":
-	app.debug = True
-	app.run()
+    blogs.init()
+    acc.init()
+    entries.init()
+    entries.init_arc()
+    comments.init()
+    app.debug = True
+    app.run()
