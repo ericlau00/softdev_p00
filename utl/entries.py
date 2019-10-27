@@ -33,8 +33,8 @@ def create_entry(blogid, title, content):
     count = [item for item in query][0][0]
     time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
 
-    db.execute('INSERT INTO entries VALUES (?,?,?,?,?,?)',(blogid, count, 0, time, title, content))
-    db.execute('INSERT INTO entries_arc VALUES (?,?,?,?,?,?)',(blogid, count, 0, time, title, content))
+    db.execute('INSERT INTO entries VALUES (?,?,?,?,?,?)',(blogid, count + 1, 0, time, title, content))
+    db.execute('INSERT INTO entries_arc VALUES (?,?,?,?,?,?)',(blogid, count + 1, 0, time, title, content))
     db.commit()
 
 def read_entry(blogid, entryid):
@@ -54,8 +54,8 @@ def edit_entry(blogid, entryid, title, content):
     query = db.execute('SELECT versionid FROM entries WHERE blogid=? AND entryid=?;',(blogid, entryid))
     current = [item for item in query][0][0]
 
-    db.execute('UPDATE entries SET versionid=?, content=? WHERE blogid=? AND entryid=?;', (current + 1, content,blogid,entryid))
-    db.execute('INSERT INTO entries_arc VALUES (?,?,?,?,?,?);', (blogid, entryid, current + 1, time, title, content))
+    db.execute('UPDATE entries SET versionid=?, content=?, title=? WHERE blogid=? AND entryid=?;', (current, content, title, blogid,entryid))
+    db.execute('INSERT INTO entries_arc VALUES (?,?,?,?,?,?);', (blogid, entryid, current, time, title, content))
     db.commit()
 
 def delete_entry(blogid, entryid):
@@ -74,10 +74,9 @@ def read_entries_h(blogid, entryid):
         hist[i] = {
             'versionid':hist[i][0],
             'timestamp':hist[i][1],
-            'title':hist[i][1],
+            'title':hist[i][2],
             'content':hist[i][3].split("\n"),
         }
-        print(hist[i])
     return hist
 
 def read_comments(blogid, entryid):

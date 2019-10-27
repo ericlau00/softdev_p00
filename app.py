@@ -10,9 +10,6 @@ from utl import acc, blogs, entries, comments
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
 
-username = "user"
-password = "password"
-
 @app.route("/", methods=["GET"])
 def root():
     if 'user' in session:
@@ -184,6 +181,7 @@ def view_entry(blogid,entryid):
                         )
     else:
         return redirect(url_for("login"))
+        
 @app.route("/blog/<blogid>/<entryid>/edit_history", methods = ["GET","POST"])
 def view_edit_history(blogid,entryid):
     if 'user' in session:
@@ -197,16 +195,19 @@ def view_edit_history(blogid,entryid):
 @app.route("/blog/<blogid>/<entryid>/edit", methods = ["GET","POST"])
 def edit_entry(blogid,entryid):
     if 'user' in session:
+        entry = entries.read_entry(blogid, entryid)
+        for line in range(len(entry['content'])):
+            entry['content'][line] = entry['content'][line].replace("\r","")
         if(session.get('user') == acc.get_username(blogs.get_userid(blogid))):
             if(request.method == "GET"):
                 return render_template("edit_entry.html",
                                 userid = session.get('userid'),
-                                entry = entries.read_entry(blogid,entryid),
+                                entry = entry,
                                 blogid = blogid,
                                 entryid = entryid
                                 )
             elif(request.method == "POST"):
-                entries.edit_entry(blogid, entryid, request.form['entry_content'])
+                entries.edit_entry(blogid, entryid, request.form['title'], request.form['entry_content'])
                 flash("Successfully edited entry")
                 return redirect(url_for("view_entry", blogid = blogid, entryid = entryid))
         else:
