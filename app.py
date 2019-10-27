@@ -91,10 +91,12 @@ def search():
     if 'user' in session:
         if(request.method == "GET"):
             return render_template("search.html",
-                                    userid = session.get('userid'))
+                                    userid = session.get('userid'),
+                                    query="")
         if(request.method == "POST"):
             return render_template("search.html",
-                                    userid = session.get('userid'))
+                                    userid = session.get('userid'),
+                                    results = search.search(request.form["search_query"]))
     else:
         return redirect(url_for("login"))
 
