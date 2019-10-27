@@ -204,6 +204,10 @@ gorbachevY -- 2019-10-26 23:45
     create delete function for a entry
     fix entry editing 
 
+gorbachev& -- 2019-10-26 00:30
+    implemented comments
+    implemented deletion of comments, blogs, and entries
+
 lauE -- 2019-10-27 00:47
     create view entry function 
     reinitialize entries table

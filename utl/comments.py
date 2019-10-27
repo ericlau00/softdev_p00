@@ -23,3 +23,7 @@ def create_comment(blogid, entryid, userid, content):
 
     db.execute('INSERT INTO comments VALUES (?,?,?,?,?,?)', (blogid, entryid, count, userid, time, content))
     db.commit()
+
+def delete_comment(blogid, entryid, commentid):
+    db = sqlite3.connect(__dbfile__)
+    db.execute('DELETE FROM comments WHERE blogid=? AND entryid=? AND commentid=?;',(blogid, entryid, commentid))

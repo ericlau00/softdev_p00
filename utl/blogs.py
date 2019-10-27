@@ -55,15 +55,9 @@ def read_entries(blogid):
     for i in range(len(elist)):
         elist[i] = {
             'entryid':elist[i][0],
-<<<<<<< HEAD
-            'versionid':elist[i][1],
-            'timestamp':elist[i][2],
-            'content':list(elist[i])[3].split("\n")[0],
-=======
             'timestamp':elist[i][1],
             'title':elist[i][2],
             'content':list(elist[i])[3].split("\n"),
->>>>>>> b367d519abd70013a2862453d0c3b7053d1290bb
         }
     return elist
 
