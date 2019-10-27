@@ -150,32 +150,38 @@ def create_entry(blogid):
     if 'user' in session:
         if(request.method == "GET"):
             return render_template("create_entry.html",
-                                    blogid= blogid,
+                                    blogid = blogid,
                                     userid = session.get('userid')
                                     )
         elif(request.method == "POST"):
-            if request.form['entry_content'] == '' or request.form['entry_content'].isspace():
+            print("YOO")
+            if request.form['entry_title'] == '' or request.form['entry_title'].isspace() or request.form['entry_content'] == '' or request.form['entry_content'].isspace():
                 flash("please input some text")
                 return render_template("create_entry.html",
                                         blogid=blogid,
-                                        userid = session.get('userid'))
-            entries.create_entry(blogid, request.form['entry_content'])
-            flash("You have successfully created an entry!")
-            return redirect(url_for("view_blog", blogid = blogid))
+                                        userid = session.get('userid')
+                                        )
+            else:
+                entries.create_entry(blogid,
+                                    request.form['entry_title'],
+                                    request.form['entry_content']
+                                    )
+                flash("You have successfully created an entry!")
+                return redirect(url_for("view_blog", blogid = blogid))
     else:
         return redirect(url_for("login"))
 
-@app.route("/blog/<blogid>/entry/<entryid>/view", methods = ["GET","POST"])
+@app.route("/blog/<blogid>/<entryid>/view", methods = ["GET","POST"])
 def view_entry(blogid,entryid):
     if 'user' in session:
         return render_template("entry.html",
-                        description = blogs.describe(blogid)
+                        description = blogs.describe(blogid),
                         entry = entries.read_content(blogid, entryid),
                         userid = session.get('userid')
                         )
     else:
         return redirect(url_for("login"))
-@app.route("/blog/<blogid>/entry/<entryid>/edit_history", methods = ["GET","POST"])
+@app.route("/blog/<blogid>/<entryid>/edit_history", methods = ["GET","POST"])
 def view_edit_history(blogid,entryid):
     if 'user' in session:
         return render_template("edit_history.html",
@@ -185,11 +191,8 @@ def view_edit_history(blogid,entryid):
     else:
         return redirect(url_for("login"))
 
-@app.route("/blog/<blogid>/entry/<entryid>/edit", methods = ["GET","POST"])
+@app.route("/blog/<blogid>/<entryid>/edit", methods = ["GET","POST"])
 def edit_entry(blogid,entryid):
-    print("YOOOO")
-    print (request.args)
-    print(request.args.get('content'))
     if 'user' in session:
         if(session.get('user') == acc.get_username(blogs.get_userid(blogid))):
             if(request.method == "GET"):

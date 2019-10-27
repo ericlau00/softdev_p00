@@ -14,7 +14,8 @@
 
 {% for entry in entries %}
 <h3>
-{{ entry['timestamp'] }}
+<a href = "/blog/{{blogid}}/{{entry['entryid']}}/view"> {{ entry ['title']}}: {{ entry['timestamp'] }}</a><br>
 </h3>
+{{entry['content'][0]}}...
 {% endfor %}
 {% endblock %}

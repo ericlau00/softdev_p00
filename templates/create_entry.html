@@ -10,9 +10,12 @@ Create Entry
 
 {% block body %}
 {{super()}}
+
 <br><br>
-<form action="/blog/{{blog_id}}/create_entry" method="post">
+<form action="/blog/{{blogid}}/create_entry" method="post">
   <br>Create an Entry <br>
+  Entry Title: <input type="text" name="entry_title" placeholder = "Today, I went shopping..."><br>
+  Enter Entry Content<br>
   <textarea rows = "5" cols = "60" name = "entry_content" placeholder="Enter details here..."></textarea><br>
   <input type = "submit" value = "Create Entry" />
 </form>

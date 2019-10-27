@@ -44,7 +44,7 @@ def describe(blogid):
 def read_entries(blogid):
     db = sqlite3.connect(__dbfile__)
     query = db.execute('''
-                    SELECT entryid, versionid, timestamp, content FROM entries
+                    SELECT entryid, timestamp, title, content FROM entries
                     WHERE blogid=?
                     ORDER BY entryid DESC
                     ''', (blogid,))
@@ -52,8 +52,8 @@ def read_entries(blogid):
     for i in range(len(elist)):
         elist[i] = {
             'entryid':elist[i][0],
-            'versionid':elist[i][1],
-            'timestamp':elist[i][2],
+            'timestamp':elist[i][1],
+            'title':elist[i][2],
             'content':list(elist[i])[3].split("\n"),
         }
     return elist
