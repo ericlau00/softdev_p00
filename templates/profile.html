@@ -10,14 +10,10 @@
 <h2> {{username}}'s Profile </h2>
 
 {% if is_owner %}
-<a href="/profile/create_blog"> Create a new blog</a>
-<br>
-<br>
+<h3><a href="/profile/create_blog"> Create a new blog</a></h3>
 {% endif %}
 
-{% if user_blogs != False %}
 {% for blog in user_blogs %}
-<a href="/blog/{{blog[0]}}"> {{blog[1]}}</a><br>
+<h4><a href="/blog/{{blog[0]}}"> {{blog[1]}}</a></h4>
 {% endfor %}
-{% endif %}
 {% endblock %}
