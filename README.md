@@ -41,7 +41,7 @@ deactivate
     - Install by running `pip install flask` in your terminal
         - If the above does not work, run `pip3 install flask` (this may be the case if a version of python2 is also installed)
     
-### Imported Modules (All are included within the Python Standard Library)
+### Imported Modules (all are included within the Python Standard Library)
 - [os](https://docs.python.org/3/library/os.html)
     - module helps with reading or writing other files in the computer
     - our file structure of utl and data created a situation such that referring to the database in utl required changing directories and we decided it would be better to have an absolute path
@@ -51,6 +51,11 @@ deactivate
     - we think that it is more secure to store a hashed password in our database than to store the password itself
     - when registering an account, the user-inputted password is hashed with the md5 algorithm and stored in the users table 
     - when logging in, the user-inputted password is hashed with the md5 algorithm and checked against the password in the database 
+- [datetime](https://docs.python.org/3/library/datetime.html)
+    - module supports manipulation of dates and times
+    - we want to be able to show when comments and entries are created
+    - when inserting comments and entries, we convert dates to integers and convert back to strings to display
+    
 ### How to run
 - Run `python app.py` in the directory
     - If the above does not work, run `python3 app.py` (this may be the case if a version of python2 is also installed)

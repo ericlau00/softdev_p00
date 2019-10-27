@@ -41,9 +41,10 @@ def login():
             return render_template(
                 'login.html',
                 )
-    elif(request.method == 'POST'):
-        session['userid'] = acc.verify_acc(request.form['username'],request.form['password'])
-        if session.get('userid') != False:
+    elif(request.method == "POST"):
+        session['userid'] = acc.get_userid(request.form['username'])
+        print(session.get('userid'))
+        if (acc.verify_acc(request.form['username'],request.form['password'])):
             session['user'] = request.form['username']
             flash('You have successfully logged in!')
             return redirect(url_for('home'))
@@ -69,7 +70,8 @@ def register():
 
 @app.route('/logout', methods = ['GET','POST'])
 def logout():
-        # remove the username from the session if it's there
+        # remove the username and userid from the session if it's there
+        session.pop('userid', None)
         session.pop('user', None)
         flash('You were successfully logged out!')
         return redirect(url_for('login'))
@@ -142,8 +144,7 @@ def create_blog():
 @app.route('/blog/<blogid>', methods = ['GET','POST'])
 def view_blog(blogid):
     if 'user' in session:
-        #print(blogs.read_entries(blogid)[0]['content'])
-        return render_template('blog.html',
+        return render_template("blog.html",
             blogid = blogid,
             description = blogs.describe(blogid),
             entries = blogs.read_entries(blogid),
@@ -255,7 +256,7 @@ def delete_entry(blogid,entryid):
 @app.route('/blog/<blogid>/<entryid>/<commentid>/<userid>/delete', methods = ['GET','POST'])
 def delete_comment(blogid,entryid,commentid,userid):
     if 'user' in session:
-        if(session.get('userid') == userid):
+        if(int(session.get('userid')) == int(userid)):
             comments.delete_comment(blogid,entryid,commentid)
             flash('Successfully deleted comment')
             return redirect(url_for('view_entry', blogid = blogid, entryid = entryid))
