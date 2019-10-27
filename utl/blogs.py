@@ -14,7 +14,7 @@ def init():
 
 def create_blog(userid, title):
     db = sqlite3.connect(__dbfile__)
-    try:
+    try:    
         db.execute('INSERT INTO blogs VALUES (?,?,?);', (userid, count(), title))
         db.commit()
         return True
@@ -24,7 +24,10 @@ def create_blog(userid, title):
 
 def delete_blog(blogid):
     db = sqlite3.connect(__dbfile__)
+    db.execute('DELETE FROM blogs, entries, entries_arc WHERE blogid=?',(blogid,))
+    db.commit()
 
+    
 def describe(blogid):
     db = sqlite3.connect(__dbfile__)
     query = db.execute(
@@ -54,10 +57,8 @@ def read_entries(blogid):
             'entryid':elist[i][0],
             'versionid':elist[i][1],
             'timestamp':elist[i][2],
-            'content':list(elist[i])[3].split("\n"),
+            'content':list(elist[i])[3].split("\n")[0],
         }
-    print("HELLO")
-    print(elist[0]['content'])
     return elist
 
 def get_user_blogs(userid):
