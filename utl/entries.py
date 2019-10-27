@@ -7,20 +7,20 @@ __dbfile__ = os.path.dirname(os.path.abspath(__file__)) + '/../data/sitedata.db'
 def init():
     db = sqlite3.connect(__dbfile__)
     db.execute('''CREATE TABLE IF NOT EXISTS entries (
-                    blogid INTEGER, 
-                    entryid INTEGER, 
-                    versionid INTEGER, 
-                    timestamp INTEGER, 
+                    blogid INTEGER,
+                    entryid INTEGER,
+                    versionid INTEGER,
+                    timestamp INTEGER,
                     content TEXT);''')
     db.commit()
 
 def init_arc():
     db = sqlite3.connect(__dbfile__)
     db.execute('''CREATE TABLE IF NOT EXISTS entries_arc (
-                    blogid INTEGER, 
-                    entryid INTEGER, 
-                    versionid INTEGER, 
-                    timestamp INTEGER, 
+                    blogid INTEGER,
+                    entryid INTEGER,
+                    versionid INTEGER,
+                    timestamp INTEGER,
                     content TEXT);''')
     db.commit()
 
@@ -48,7 +48,7 @@ def edit_entry(blogid, entryid, content):
 def read_entries_h(blogid, entryid):
     db = sqlite3.connect(__dbfile__)
     query = db.execute('''
-            SELECT versionid, timestamp, content 
+            SELECT versionid, timestamp, content
             FROM entries_arc WHERE blogid=? AND entryid=?
             ORDER BY versionid DESC''',(blogid, entryid))
     hist = [item for item in query]
@@ -56,7 +56,7 @@ def read_entries_h(blogid, entryid):
         hist[i] = {
             'versionid':hist[i][0],
             'timestamp':hist[i][1],
-            'content':hist[i][2], 
+            'content':hist[i][2].split("\n"),
         }
         print(hist[i])
     return hist
@@ -64,8 +64,8 @@ def read_entries_h(blogid, entryid):
 def read_comments(blogid, entryid):
     db = sqlite3.connect(__dbfile__)
     query = db.execute('''
-            SELECT comments.userid, comments.timestamp, comments.content 
-            FROM comments WHERE comments.blogid=? AND comments.entryid=? 
+            SELECT comments.userid, comments.timestamp, comments.content
+            FROM comments WHERE comments.blogid=? AND comments.entryid=?
             ORDER BY commentid DESC''',(blogid, entryid))
     comments = [item for item in query]
     for i in range(len(comments)):

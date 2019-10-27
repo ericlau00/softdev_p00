@@ -169,7 +169,7 @@ def create_entry(blog_id):
 def view_edit_history(blog_id,entry_id):
     if 'user' in session:
         print(entries.read_entries_h(blog_id, entry_id))
-        render_template("edit_history.html",
+        return render_template("edit_history.html",
                         entries = entries.read_entries_h(blog_id, entry_id),
                         userid = session.get('userid')
                         )
