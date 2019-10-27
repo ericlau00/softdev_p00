@@ -81,8 +81,15 @@ def settings():
             return render_template("settings.html",
                                     userid = session.get('userid'))
         elif(request.method == "POST"):
-            return render_template("settings.html",
-                                    userid=session.get('userid'))
+            if request.form['password'] != request.form['confirmpassword']:
+                flash("Passwords do not match")
+                return render_template("settings.html")
+            elif (acc.edit_acc(session.get('userid'),request.form['username'],request.form['password'])):
+                flash("Successfully reset credentials")
+                return redirect(url_for("home"))
+            else:
+                flash("Username already exists")
+                return render_template("settings.html")
     else:
         return redirect(url_for("login"))
 
@@ -145,7 +152,7 @@ def view_blog(blogid):
 @app.route("/blog/<blogid>/create_entry", methods = ["GET","POST"])
 def create_entry(blogid):
     if 'user' in session:
-        if(session.get('user') == acc.get_username(blogs.get_userid(blogid))):
+        if(session.get('userid') == blogs.get_userid(blogid)):
             if(request.method == "GET"):
                 return render_template("create_entry.html",
                                         blogid = blogid,
@@ -180,7 +187,7 @@ def view_entry(blogid,entryid):
                                     entryid = entryid,
                                     description = blogs.describe(blogid),
                                     entry = entries.read_entry(blogid, entryid),
-                                    is_owner = session.get('user') == acc.get_username(blogs.get_userid(blogid)),
+                                    is_owner = session.get('userid') == blogs.get_userid(blogid),
                                     userid = session.get('userid'),
                                     comments = entries.read_comments(blogid,entryid)
                                     )
@@ -210,7 +217,7 @@ def edit_entry(blogid,entryid):
         entry = entries.read_entry(blogid, entryid)
         for line in range(len(entry['content'])):
             entry['content'][line] = entry['content'][line].replace("\r","")
-        if(session.get('user') == acc.get_username(blogs.get_userid(blogid))):
+        if(session.get('userid') == blogs.get_userid(blogid)):
             if(request.method == "GET"):
                 return render_template("edit_entry.html",
                                 userid = session.get('userid'),
@@ -231,7 +238,7 @@ def edit_entry(blogid,entryid):
 @app.route("/blog/<blogid>/<entryid>/delete", methods = ["GET","POST"])
 def delete_entry(blogid,entryid):
     if 'user' in session:
-        if(session.get('user') == acc.get_username(blogs.get_userid(blogid))):
+        if(session.get('userid') == blogs.get_userid(blogid)):
             entries.delete_entry(blogid, entryid)
             flash("Successfully deleted entry")
             return redirect(url_for("view_blog", blogid = blogid))
@@ -244,7 +251,7 @@ def delete_entry(blogid,entryid):
 @app.route("/blog/<blogid>/<entryid>/<commentid>/<userid>/delete", methods = ["GET","POST"])
 def delete_comment(blogid,entryid,commentid,userid):
     if 'user' in session:
-        if(session.get('user') == acc.get_username(userid)):
+        if(session.get('userid') == userid):
             comments.delete_comment(blogid,entryid,commentid)
             flash("Successfully deleted comment")
             return redirect(url_for("view_entry", blogid = blogid, entryid = entryid))

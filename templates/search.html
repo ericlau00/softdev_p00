@@ -11,9 +11,12 @@ Search
 {% block body %}
 {{ super() }}
 <br>
-<form action="/search" method="post">
-    Blog Title: <input type="text" name="blog_title"><br>
-    <input type="submit" value="Search"><br>
+<form action="/settings" method="post">
+  <br>Reset Credentials <br>
+  Entry Title: <input type="text" name="entry_title" placeholder = "Today, I went shopping..."><br>
+  Enter Entry Content<br>
+  <textarea rows = "5" cols = "60" name = "entry_content" placeholder="Enter details here..."></textarea><br>
+  <input type = "submit" value = "Reset Credentials" />
 </form>
 
 {% endblock %}
