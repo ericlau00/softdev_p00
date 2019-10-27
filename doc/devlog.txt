@@ -198,19 +198,31 @@ leeJo -- 2019-10-26 19:33
 
 leeJo -- 2019-10-26 22:14
     successfully debugged an html bug
-    fully implemented editing entry feature 
+    fully implemented editing entry feature
 
 gorbachevY -- 2019-10-26 23:45
     create delete function for a entry
-    fix entry editing 
+    fix entry editing
 
-gorbachev& -- 2019-10-26 00:30
+leeJo -- 2019-10-27 00:12
+    changed viewing of entries
+    reworked UI
+    started delete feature for entries
+
+gorbachev& -- 2019-10-27 00:30
     implemented comments
     implemented deletion of comments, blogs, and entries
 
 lauE -- 2019-10-27 00:47
-    create view entry function 
+    create view entry function
     reinitialize entries table
 
 lauE -- 2019-10-27 03:15
-    fixed editing entries with titles and correct new lines 
+    fixed editing entries with titles and correct new lines
+
+leeJo -- 2019-10-27 04:26
+    Finished delete entry feature
+    Implemented comment feature
+    added user tags to Comments
+    implemented deleting comment feature
+    added more security checks
