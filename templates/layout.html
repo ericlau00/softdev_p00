@@ -11,8 +11,6 @@
 <body>
   <center>
     <h1>Tumblr: the SeQueL</h1>
-    <h4> Joseph Lee, Yevgeniy Gorbachev, Eric Lau</h4>
-
     {% block header %}
     {% endblock %}
 
@@ -23,12 +21,19 @@
     {% endfor %}
     {% endif %}
     {% endwith %}
-    <br>
-
-    {% block body %}
-    {% endblock %}
   </center>
 
+
+  {% block body %}
+  {% endblock %}
+
 </body>
+
+<footer>
+  <hr>
+  {% block footer %}
+  &copy Team SeQueL: Joseph Lee, Yevgeniy Gorbachev, Eric Lau
+  {% endblock %}
+</footer>
 
 </html>
