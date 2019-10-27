@@ -216,6 +216,19 @@ def edit_entry(blogid,entryid):
     else:
         return redirect(url_for("login"))
 
+@app.route("/blog/<blogid>/<entryid>/delete", methods = ["GET","POST"])
+def delete_entry(blogid,entryid):
+    if 'user' in session:
+        if(session.get('user') == acc.get_username(blogs.get_userid(blogid))):
+            entries.delete_entry(blogid, entryid)
+            flash("Successfully deleted entry")
+            return redirect(url_for("view_blog", blogid = blogid))
+        else:
+            flash("Please do not try to delete other people's entries!")
+            return redirect(url_for("home"))
+    else:
+        return redirect(url_for("login"))
+
 if __name__ == "__main__":
     blogs.init()
     acc.init()
