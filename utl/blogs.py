@@ -27,21 +27,19 @@ def delete_blog(blogid):
     db.execute('DELETE FROM blogs, entries, entries_arc WHERE blogid=?',(blogid,))
     db.commit()
 
-    
 def describe(blogid):
     db = sqlite3.connect(__dbfile__)
-    query = db.execute(
-            '''
-            SELECT blogs.blogid, blogs.title, users.userid, users.username
-            FROM blogs
-            INNER JOIN users
-            ON blogs.userid = users.userid
-            WHERE blogs.blogid = ?
-            ''', (blogid,)
-            )
     try:
+        query = db.execute(f'''
+                SELECT blogs.blogid, blogs.title, users.userid, users.username 
+                FROM blogs 
+                INNER JOIN users 
+                ON blogs.userid = users.userid 
+                WHERE blogs.blogid = {blogid};
+                ''')
         return [data for data in query][0]
-    except IndexError as error:
+    except sqlite3.Error as error:
+        print(error)
         return False
 
 def read_entries(blogid):
@@ -93,5 +91,5 @@ def get_userid(blogid):
 ##SUPPLEMENTARY
 def count():
     db = sqlite3.connect(__dbfile__)
-    query = db.execute('SELECT count(*) FROM blogs;')
-    return [num for num in query][0][0]
+    count = db.execute('SELECT count(*) FROM blogs;')
+    return [num for num in count][0][0]

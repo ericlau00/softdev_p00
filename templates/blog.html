@@ -7,13 +7,13 @@
 {% block body %}
 {{ super() }}
 
-<h2> {{description[1]}} by {{description[3]}}</h2>
+<h3> {{description[1]}} by {{description[3]}}</h3>
 {% if is_owner %}
-<a href = "/blog/{{blogid}}/create_entry"> Create a new entry</a><br>
+<a href = "/blog/{{blogid}}/create_entry"> [Create a new entry] </a><br>
 {% endif %}
 
 {% for entry in entries %}
-<h3>
+<h4>
 <a href = "/blog/{{blogid}}/{{entry['entryid']}}/view"> {{ entry ['title']}}: {{ entry['timestamp'] }}</a><br>
 </h3>
 {{entry['content'][0][0:30]}}...

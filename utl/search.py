@@ -10,7 +10,6 @@ def search(keyword):
                         FROM blogs INNER JOIN users ON blogs.userid = users.userid
                         WHERE blogs.title LIKE ?;''',(f'%{keyword}%',))
     results = [item for item in query]
-    print(results)
     for i in range(len(results)):
         results[i] = {
             'blogid':results[i][0],
