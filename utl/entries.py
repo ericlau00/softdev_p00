@@ -99,3 +99,8 @@ def read_comments(blogid, entryid):
     for item in comments:
         print(item)
     return comments
+
+def count_comments(blogid, entryid):
+    db = sqlite3.connect(__dbfile__)
+    query = db.execute('SELECT count(*) FROM comments WHERE blogid=? AND entryid=?',(blogid, entryid))
+    return [item for item in query][0][0]
