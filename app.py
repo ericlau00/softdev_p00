@@ -43,7 +43,6 @@ def login():
                 )
     elif(request.method == "POST"):
         session['userid'] = acc.get_userid(request.form['username'])
-        print(session.get('userid'))
         if (acc.verify_acc(request.form['username'],request.form['password'])):
             session['user'] = request.form['username']
             flash('You have successfully logged in!')
@@ -148,7 +147,7 @@ def view_blog(blogid):
             blogid = blogid,
             description = blogs.describe(blogid),
             entries = blogs.read_entries(blogid),
-            is_owner = (session.get('userid') == blogs.get_userid(blogid)),
+            is_owner = (int(session.get('userid')) == blogs.get_userid(int(blogid))),
             userid = session.get('userid')
             )
     else:
@@ -157,7 +156,7 @@ def view_blog(blogid):
 @app.route('/blog/<blogid>/create_entry', methods = ['GET','POST'])
 def create_entry(blogid):
     if 'user' in session:
-        if(session.get('userid') == blogs.get_userid(blogid)):
+        if(int(session.get('userid')) == (blogs.get_userid(int(blogid)))):
             if(request.method == 'GET'):
                 return render_template('create_entry.html',
                                         blogid = blogid,
@@ -192,7 +191,7 @@ def view_entry(blogid,entryid):
                                     entryid = entryid,
                                     description = blogs.describe(blogid),
                                     entry = entries.read_entry(blogid, entryid),
-                                    is_owner = session.get('userid') == blogs.get_userid(blogid),
+                                    is_owner = int(session.get('userid')) == blogs.get_userid(int(blogid)),
                                     userid = session.get('userid'),
                                     comments = entries.read_comments(blogid,entryid)
                                     )
@@ -222,7 +221,7 @@ def edit_entry(blogid,entryid):
         entry = entries.read_entry(blogid, entryid)
         for line in range(len(entry['content'])):
             entry['content'][line] = entry['content'][line].replace('\r','')
-        if(session.get('userid') == blogs.get_userid(blogid)):
+        if(int(session.get('userid')) == blogs.get_userid(int(blogid))):
             if(request.method == 'GET'):
                 return render_template('edit_entry.html',
                                 userid = session.get('userid'),
