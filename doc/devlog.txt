@@ -243,3 +243,7 @@ leeJo -- 2019-10-27 19:23
 lauE -- 2019-10-27 21:32
     added more methods to the component map
     updated sitemap
+
+gorbachevY -- 2019-10-27 22:00
+    Changed search frontend
+    
