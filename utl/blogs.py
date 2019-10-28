@@ -1,5 +1,6 @@
 import sqlite3
 import os
+from utl import entries
 
 __dbfile__ = os.path.dirname(os.path.abspath(__file__)) + '/../data/sitedata.db'
 
@@ -56,6 +57,7 @@ def read_entries(blogid):
             'timestamp':elist[i][1],
             'title':elist[i][2],
             'content':list(elist[i])[3].split("\n"),
+            'count_comments':entries.count_comments(blogid,elist[i][0])
         }
     return elist
 

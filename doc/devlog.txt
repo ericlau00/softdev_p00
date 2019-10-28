@@ -45,6 +45,7 @@ leeJo -- 2019-10-21 20:48
     It would be useful when querying for entries that belong to a blog or comments that belong to an entry because there may not be anything in those sets and it would be useful to know that they are NULL.
 
 lauE -- 2019-10-22 00:07
+    Design Doc Modifications 
     Fix minor typos and missing words
     Add what search results displays
     Clarify use of layout.html
@@ -232,3 +233,6 @@ lauE -- 2019-10-27 14:32
     0 and 1 in python represent boolean values 
     fix data display error 
 
+lauE -- 2019-10-27 21:32
+    added more methods to the component map
+    updated sitemap 
