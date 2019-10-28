@@ -7,7 +7,7 @@
 {% block body %}
 {{ super() }}
 
-<h2> {{description[1]}} by {{description[3]}}</h2>
+<h2> <a href="/blog/{{blogid}}">{{description[1]}}</a> by {{description[3]}}</h2>
 <h3> {{entry['title']}}</h3>
 <a href = "/blog/{{blogid}}/{{entryid}}/edit_history">  [View Entry's Edit History]  </a>
 {% if is_owner %}
