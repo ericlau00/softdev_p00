@@ -45,7 +45,7 @@ leeJo -- 2019-10-21 20:48
     It would be useful when querying for entries that belong to a blog or comments that belong to an entry because there may not be anything in those sets and it would be useful to know that they are NULL.
 
 lauE -- 2019-10-22 00:07
-    Design Doc Modifications 
+    Design Doc Modifications
     Fix minor typos and missing words
     Add what search results displays
     Clarify use of layout.html
@@ -219,20 +219,27 @@ lauE -- 2019-10-27 00:47
     reinitialize entries table
 
 lauE -- 2019-10-27 03:15
-    fixed editing entries with titles and correct new lines 
+    fixed editing entries with titles and correct new lines
 
-leeJo -- 2019-10-27 04:26
+lauE -- 2019-10-27 14:32
+    fix bug with login for accounts with userid == 0 or userid == 1
+    0 and 1 in python represent boolean values
+    fix data display error
+
+leeJo -- 2019-10-27 16:26
     Finished delete entry feature
     Implemented comment feature
     added user tags to Comments
     implemented deleting comment feature
     added more security checks
 
-lauE -- 2019-10-27 14:32
-    fix bug with login for accounts with userid == 0 or userid == 1 
-    0 and 1 in python represent boolean values 
-    fix data display error 
+leeJo -- 2019-10-27 17:46
+    added footnote
+    implemented settings reset credentials
+
+leeJo -- 2019-10-27 19:23
+    updated aesthetics
 
 lauE -- 2019-10-27 21:32
     added more methods to the component map
-    updated sitemap 
+    updated sitemap

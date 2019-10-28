@@ -14,9 +14,8 @@
 
 {% for entry in entries %}
 <h4>
-<a href = "/blog/{{blogid}}/{{entry['entryid']}}/view"> {{ entry ['title']}}: {{ entry['timestamp'] }}</a><br>
-</h3>
+<a href = "/blog/{{blogid}}/{{entry['entryid']}}/view"> {{ entry ['title']}}: {{ entry['timestamp'] }}</a> - {{entry['count_comments']}} comments<br>
+</h4>
 {{entry['content'][0][0:30]}}...<br><br>
-- {{entry['count_comments']}} comments
 {% endfor %}
 {% endblock %}
