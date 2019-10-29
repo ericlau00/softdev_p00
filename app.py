@@ -264,7 +264,8 @@ def edit_entry(blogid,entryid):
 def delete_entry(blogid,entryid):
     if 'user' in session:
         #only allows user to delete entry if they made the entry 
-        if(session.get('userid') == blogs.get_userid(blogid)):
+        
+        if(session.get('userid') == blogs.get_userid(int(blogid))):
             entries.delete_entry(blogid, entryid)
             flash('Successfully deleted entry')
             return redirect(url_for('view_blog', blogid = blogid))
@@ -278,7 +279,7 @@ def delete_entry(blogid,entryid):
 def delete_comment(blogid,entryid,commentid,userid):
     if 'user' in session:
         #only allow user to delete comment if they made the comment 
-        if str(session.get('userid')) == userid:
+        if int(session.get('userid')) == int(userid):
             comments.delete_comment(blogid,entryid,commentid)
             flash('Successfully deleted comment')
             return redirect(url_for('view_entry', blogid = blogid, entryid = entryid))

@@ -31,8 +31,10 @@ def init_arc():
 def create_entry(blogid, title, content):
     db = sqlite3.connect(__dbfile__)
 
-    query = db.execute('SELECT count(*) FROM entries WHERE blogid=?;',(blogid,))
-    count = [item for item in query][0][0]
+    query = db.execute('SELECT entryid FROM entries WHERE blogid=?;',(blogid,))
+    ids = [item[0] for item in query]
+    ids.append(0)
+    count = max(ids)
     time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
 
     #count of entries starts at 1
@@ -105,8 +107,6 @@ def read_comments(blogid, entryid):
             'content':comments[i][2].split("\n"),
             'commentid':comments[i][3]
         }
-    for item in comments:
-        print(item)
     return comments
 
 #get the count of comments 

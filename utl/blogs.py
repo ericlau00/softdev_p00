@@ -25,10 +25,10 @@ def create_blog(userid, title):
         return False
 
 #deletes a blog, entries that matches the blogid
-def delete_blog(blogid):
-    db = sqlite3.connect(__dbfile__)
-    db.execute('DELETE FROM blogs, entries, entries_arc WHERE blogid=?',(blogid,))
-    db.commit()
+# def delete_blog(blogid):
+#     db = sqlite3.connect(__dbfile__)
+#     db.execute('DELETE FROM blogs, entries, entries_arc WHERE blogid=?',(blogid,))
+#     db.commit()
 
 #get the blogid, title, and user info linked to a blog.
 def describe(blogid):

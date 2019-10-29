@@ -18,8 +18,10 @@ def init():
 #creates a comment with timestamp of when it was created
 def create_comment(blogid, entryid, userid, content):
     db = sqlite3.connect(__dbfile__)
-    query = db.execute('SELECT count(*) FROM comments WHERE blogid=? AND entryid=?;',(blogid, entryid))
-    count = [item for item in query][0][0]
+    query = db.execute('SELECT commentid FROM comments WHERE blogid=? AND entryid=?;',(blogid, entryid))
+    ids = [item[0] for item in query]
+    ids.append(0)
+    count = max(ids)
     time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
 
     db.execute('INSERT INTO comments VALUES (?,?,?,?,?,?)', (blogid, entryid, count, userid, time, content))
