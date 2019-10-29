@@ -247,3 +247,6 @@ lauE -- 2019-10-27 21:32
 gorbachevY -- 2019-10-27 22:00
     Changed search frontend
     
+gorbachevY -- 2019-10-20 18:14
+    Fixed deletion bug:
+	Normally, the count of comments/entries matching certain parameters is used to determine the ID, however, if an entry/comment is deleted from the middle, uniqueness conflicts ensue.
