@@ -28,6 +28,7 @@ def verify_acc(un, pw):
         print(error)
         return False
 
+#gets the userid that matches the username 
 def get_userid(un):
     try:
         db = sqlite3.connect(__dbfile__)
@@ -36,6 +37,7 @@ def get_userid(un):
     except IndexError as error:
         print(error)
 
+#if the username is unique, then insert the username and a hashed password with an incremented id.
 def create_acc(un, pw):
     hpw = __hash(pw)
     db = sqlite3.connect(__dbfile__)
@@ -47,6 +49,7 @@ def create_acc(un, pw):
         print(error)
         return False
 
+# update the username or password given that the username is unique
 def edit_acc(userid, new_un='', new_pw=''):
     db = sqlite3.connect(__dbfile__)
     try:
@@ -61,6 +64,7 @@ def edit_acc(userid, new_un='', new_pw=''):
         print(error)
         return False
 
+#given an id, return the username that matches 
 def get_username(userid):
     db = sqlite3.connect(__dbfile__)
     try:
@@ -76,12 +80,13 @@ def get_username(userid):
         print(error)
         return False
 
-
+#hash the password using the md5 algorithm 
 def __hash(txt):
     hpw = md5()
     hpw.update(txt.encode('UTF-8'))
     return hpw.hexdigest()
 
+#get the count of the number of users 
 def __count():
     db = sqlite3.connect(__dbfile__)
     count = db.execute('SELECT count(*) FROM users;')

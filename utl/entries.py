@@ -16,6 +16,7 @@ def init():
                     content TEXT);''')
     db.commit()
 
+#this is an archive of all entries to be able to view entry history 
 def init_arc():
     db = sqlite3.connect(__dbfile__)
     db.execute('''CREATE TABLE IF NOT EXISTS entries_arc (
@@ -34,6 +35,8 @@ def create_entry(blogid, title, content):
     count = [item for item in query][0][0]
     time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
 
+    #count of entries starts at 1
+    #version starts at 0
     db.execute('INSERT INTO entries VALUES (?,?,?,?,?,?)',(blogid, count + 1, 0, time, title, content))
     db.execute('INSERT INTO entries_arc VALUES (?,?,?,?,?,?)',(blogid, count + 1, 0, time, title, content))
     db.commit()
@@ -45,10 +48,13 @@ def read_entry(blogid, entryid):
     query = [item for item in query][0]
     entry = {
         'title': query[0],
+        #splits on new line to be able to show new lines on html frontend
         'content': query[1].split("\n")
     }
     return entry
 
+#updates the current entry in entries table 
+#makes a new version of the entry in the entries_arc table
 def edit_entry(blogid, entryid, title, content):
     db = sqlite3.connect(__dbfile__)
     time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
@@ -59,12 +65,14 @@ def edit_entry(blogid, entryid, title, content):
     db.execute('INSERT INTO entries_arc VALUES (?,?,?,?,?,?);', (blogid, entryid, current, time, title, content))
     db.commit()
 
+#deletes entry linked to blog and entry id 
 def delete_entry(blogid, entryid):
     db = sqlite3.connect(__dbfile__)
     db.execute('DELETE FROM entries WHERE blogid=? AND entryid=?;', (blogid, entryid))
     db.execute('DELETE FROM entries_arc WHERE blogid=? AND entryid=?;', (blogid, entryid))
     db.commit()
 
+#returns all of the previous versions of an entry 
 def read_entries_h(blogid, entryid):
     db = sqlite3.connect(__dbfile__)
     query = db.execute('''
@@ -81,6 +89,7 @@ def read_entries_h(blogid, entryid):
         }
     return hist
 
+#get all of the comments that are linked to an entry
 def read_comments(blogid, entryid):
     db = sqlite3.connect(__dbfile__)
     query = db.execute('''
@@ -100,6 +109,7 @@ def read_comments(blogid, entryid):
         print(item)
     return comments
 
+#get the count of comments 
 def count_comments(blogid, entryid):
     db = sqlite3.connect(__dbfile__)
     query = db.execute('SELECT count(*) FROM comments WHERE blogid=? AND entryid=?',(blogid, entryid))

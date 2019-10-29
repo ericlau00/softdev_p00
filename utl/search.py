@@ -3,6 +3,7 @@ import os
 
 __dbfile__ = os.path.dirname(os.path.abspath(__file__)) + '/../data/sitedata.db'
 
+#returns blog information that is "like" the keyword
 def search(keyword):
     db = sqlite3.connect(__dbfile__)
     query = db.execute('''

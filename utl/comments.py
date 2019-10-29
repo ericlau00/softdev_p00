@@ -15,6 +15,7 @@ def init():
                     content TEXT);''')
     db.commit()
 
+#creates a comment with timestamp of when it was created
 def create_comment(blogid, entryid, userid, content):
     db = sqlite3.connect(__dbfile__)
     query = db.execute('SELECT count(*) FROM comments WHERE blogid=? AND entryid=?;',(blogid, entryid))
@@ -24,6 +25,7 @@ def create_comment(blogid, entryid, userid, content):
     db.execute('INSERT INTO comments VALUES (?,?,?,?,?,?)', (blogid, entryid, count, userid, time, content))
     db.commit()
 
+#deletes a comment linked to blog and entry
 def delete_comment(blogid, entryid, commentid):
     db = sqlite3.connect(__dbfile__)
     db.execute('DELETE FROM comments WHERE blogid=? AND entryid=? AND commentid=?;',(blogid, entryid, commentid))

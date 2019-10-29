@@ -13,6 +13,7 @@ def init():
                 ''')
     db.commit()
 
+#create a new blog given that the title of the blog is unique, linked to user of userid
 def create_blog(userid, title):
     db = sqlite3.connect(__dbfile__)
     try:    
@@ -23,11 +24,13 @@ def create_blog(userid, title):
         print(error)
         return False
 
+#deletes a blog, entries that matches the blogid
 def delete_blog(blogid):
     db = sqlite3.connect(__dbfile__)
     db.execute('DELETE FROM blogs, entries, entries_arc WHERE blogid=?',(blogid,))
     db.commit()
 
+#get the blogid, title, and user info linked to a blog.
 def describe(blogid):
     db = sqlite3.connect(__dbfile__)
     try:
@@ -43,6 +46,7 @@ def describe(blogid):
         print(error)
         return False
 
+#get all of the entries (and info about entry) that are linked to a blog
 def read_entries(blogid):
     db = sqlite3.connect(__dbfile__)
     query = db.execute('''
@@ -61,6 +65,7 @@ def read_entries(blogid):
         }
     return elist
 
+#get all of the blogs that were created by user linked to userid
 def get_user_blogs(userid):
     db = sqlite3.connect(__dbfile__)
     try:
@@ -76,6 +81,7 @@ def get_user_blogs(userid):
         print(error)
         return False
 
+#get the user that created a blog
 def get_userid(blogid):
     db = sqlite3.connect(__dbfile__)
     query = db.execute(
@@ -90,7 +96,9 @@ def get_userid(blogid):
         return [data for data in query][0][0]
     except IndexError as error:
         return False
+
 ##SUPPLEMENTARY
+#count of number of blogs
 def count():
     db = sqlite3.connect(__dbfile__)
     count = db.execute('SELECT count(*) FROM blogs;')

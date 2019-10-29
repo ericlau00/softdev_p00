@@ -22,8 +22,11 @@ def home():
     if 'user' in session:
         count = blogs.count()
         info = []
+
+        #info contains all of the information to create blog links and user links 
         for i in range(count):
             info.append(blogs.describe(i))
+
         return render_template(
             'home.html',
             blogs = info,
@@ -42,8 +45,9 @@ def login():
                 'login.html',
                 )
     elif(request.method == "POST"):
-        session['userid'] = acc.get_userid(request.form['username'])
+        #if the login information is correct, redirect to home 
         if (acc.verify_acc(request.form['username'],request.form['password'])):
+            session['userid'] = acc.get_userid(request.form['username'])
             session['user'] = request.form['username']
             flash('You have successfully logged in!')
             return redirect(url_for('home'))
@@ -58,9 +62,12 @@ def register():
             'register.html',
             )
     if(request.method == 'POST'):
+        #passwords do not match, rerender register 
         if request.form['password'] != request.form['confirmpassword']:
             flash('Passwords do not match')
             return render_template('register.html')
+        #create account returns true if successful account creation
+        #returns false if unsuccessful 
         elif (acc.create_acc(request.form['username'],request.form['password'])):
             return redirect(url_for('login'))
         else:
@@ -82,9 +89,12 @@ def settings():
             return render_template('settings.html',
                                     userid = session.get('userid'))
         elif(request.method == 'POST'):
+            #passwords do not match 
             if request.form['password'] != request.form['confirmpassword']:
                 flash('Passwords do not match')
                 return render_template('settings.html')
+
+            #edit_acc returns true/false depending on success of editing username/password
             elif (acc.edit_acc(session.get('userid'),request.form['username'],request.form['password'])):
                 flash('Successfully reset credentials')
                 return redirect(url_for('home'))
@@ -103,6 +113,7 @@ def lookup():
                                     query = '',
                                     blogs = [])
         if(request.method == 'POST'):
+            #returns a list of blogs that match the keyword
             return render_template('search.html',
                                     userid = session.get('userid'),
                                     blogs = search.search(request.form['search_query']),
@@ -118,6 +129,7 @@ def profile(userid):
                                 title = username,
                                 username = username,
                                 user_blogs = blogs.get_user_blogs(userid),
+                                # if user is viewing their own profile, there is a create blog button 
                                 is_owner = (str(session.get('userid')) == userid),
                                 userid = session.get('userid')
                                 )
@@ -131,6 +143,7 @@ def create_blog():
             return render_template('create_blog.html',
                                     userid = session.get('userid'))
         if(request.method == 'POST'):
+            #prevents having no name in the title 
             if request.form['blog_title'] == '' or request.form['blog_title'].isspace():
                 flash('please input a blog title')
                 return redirect(url_for('create_blog'))
@@ -147,6 +160,7 @@ def view_blog(blogid):
             blogid = blogid,
             description = blogs.describe(blogid),
             entries = blogs.read_entries(blogid),
+            #if user is owner, they can create new entries 
             is_owner = (int(session.get('userid')) == blogs.get_userid(int(blogid))),
             userid = session.get('userid')
             )
@@ -156,6 +170,7 @@ def view_blog(blogid):
 @app.route('/blog/<blogid>/create_entry', methods = ['GET','POST'])
 def create_entry(blogid):
     if 'user' in session:
+        #only allows user who created a blog to post new entries 
         if(int(session.get('userid')) == (blogs.get_userid(int(blogid)))):
             if(request.method == 'GET'):
                 return render_template('create_entry.html',
@@ -163,6 +178,7 @@ def create_entry(blogid):
                                         userid = session.get('userid')
                                         )
             elif(request.method == 'POST'):
+                #prevents creating entries with empty titles or empty content 
                 if request.form['entry_title'] == '' or request.form['entry_title'].isspace() or request.form['entry_content'] == '' or request.form['entry_content'].isspace():
                     flash('please input some text')
                     return render_template('create_entry.html',
@@ -191,6 +207,7 @@ def view_entry(blogid,entryid):
                                     entryid = entryid,
                                     description = blogs.describe(blogid),
                                     entry = entries.read_entry(blogid, entryid),
+                                    #if the user owns the entry, they can edit the entry or delete the entry 
                                     is_owner = int(session.get('userid')) == blogs.get_userid(int(blogid)),
                                     userid = session.get('userid'),
                                     comments = entries.read_comments(blogid,entryid)
@@ -208,6 +225,7 @@ def view_entry(blogid,entryid):
 @app.route('/blog/<blogid>/<entryid>/edit_history', methods = ['GET','POST'])
 def view_edit_history(blogid,entryid):
     if 'user' in session:
+        #shows all of the previous versions of a blog entry
         return render_template('edit_history.html',
                         entries = entries.read_entries_h(blogid, entryid),
                         userid = session.get('userid')
@@ -219,8 +237,11 @@ def view_edit_history(blogid,entryid):
 def edit_entry(blogid,entryid):
     if 'user' in session:
         entry = entries.read_entry(blogid, entryid)
+        #read_entry returns a list with each element being a new line 
+        #remove \r from all elements (this only concerns windows?)
         for line in range(len(entry['content'])):
             entry['content'][line] = entry['content'][line].replace('\r','')
+        #only allows user to edit entry if they madae the entry 
         if(int(session.get('userid')) == blogs.get_userid(int(blogid))):
             if(request.method == 'GET'):
                 return render_template('edit_entry.html',
@@ -242,6 +263,7 @@ def edit_entry(blogid,entryid):
 @app.route('/blog/<blogid>/<entryid>/delete', methods = ['GET','POST'])
 def delete_entry(blogid,entryid):
     if 'user' in session:
+        #only allows user to delete entry if they made the entry 
         if(session.get('userid') == blogs.get_userid(blogid)):
             entries.delete_entry(blogid, entryid)
             flash('Successfully deleted entry')
@@ -255,6 +277,7 @@ def delete_entry(blogid,entryid):
 @app.route('/blog/<blogid>/<entryid>/<commentid>/<userid>/delete', methods = ['GET','POST'])
 def delete_comment(blogid,entryid,commentid,userid):
     if 'user' in session:
+        #only allow user to delete comment if they made the comment 
         if str(session.get('userid')) == userid:
             comments.delete_comment(blogid,entryid,commentid)
             flash('Successfully deleted comment')
@@ -266,6 +289,7 @@ def delete_comment(blogid,entryid,commentid,userid):
         return redirect(url_for('login'))
 
 if __name__ == '__main__':
+    #creates new tables if the tables do not exist 
     blogs.init()
     acc.init()
     entries.init()
