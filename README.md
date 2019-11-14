@@ -66,7 +66,7 @@ Due **M 2019-10-28**, 08:00, EST.
 
 *Imagine one of these scenarios*:
 
-<u>Scenario One</u>: Your team has been contracted to create a 
+<u> Scenario One </u>: Your team has been contracted to create a 
 **collaborative storytelling game/website**.
 
 - Users will have to register to use the site.
@@ -100,9 +100,9 @@ You will need a DEVLOG for this project.
 - When any team member stops working and pushes changes to github, they should update the devlog explaining what changes have been made. Include errors/bugs discovered (or created).
 - Separate devlog entries with a newline.
 - Most recent entry at the bottom.
-- Each entry should begin with the following format: `firstL -- TIMESTAMP\n`<br>
+- Each entry should begin with the following format: <br>
+`firstL -- TIMESTAMP\n`
 *e.g.*:
-<br>
 `topherM -- 1999-12-31 23:59`
 
 ## Task the First: The Plan . . .  
@@ -168,12 +168,12 @@ FINAL DELIVERABLES (*stay tuned for updates*):
 - hardcopy:
     - final version of design doc (x1)
     - staple
-- in `&lt;reporoot&gt;/doc/`:
+- in `<reporoot>/doc/`:
     - `devlog.txt`
     - `design.pdf`
         - Latest/current version of your design document.
         - Revisions since v0 noted/explained in devlog.
-in `&lt;reporoot&gt;/`:
+in `<reporoot>/`:
     - `README.md`
         - Clearly visible at top:
             - &lt;Project Name&gt; by &lt;Team Name&gt;
