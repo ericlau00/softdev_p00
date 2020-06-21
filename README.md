@@ -1,4 +1,5 @@
-# tumblr the SeQueL by SeQueL
+# tumblrr by SeQueL
+
 ## Roster 
 - **Eric Lau** (Project Managar)
     - Help out with frontend and backend tasks when applicable
@@ -13,7 +14,9 @@
     - Implementing front-end
 
 ## Instructions
+
 **Assuming python3 and pip are already installed**
+
 ### Virtual Environment 
 - To prevent conflicts with globally installed packages, it is recommended to run everything below in a virtual environment. 
 
@@ -79,7 +82,7 @@ Due **M 2019-10-28**, 08:00, EST.
     - Users get to start with any amount of text and give the story a title.
     - Logged in users will be able to read any story they have contributed to on their homepage (the landing page after login).
 
-<u>Scenario Two</u>: Your team has been contracted to create a **we*b log* hosting site**.
+<u>Scenario Two</u>: Your team has been contracted to create a ***web log* hosting site**.
 
 - Users will have to register to use the site.
 - Logged-in users will be able to
